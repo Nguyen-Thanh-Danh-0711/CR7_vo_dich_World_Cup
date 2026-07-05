@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL - Dùng cho Auth Service
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: shopcloud-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: shopcloud_admin
+      POSTGRES_PASSWORD: admin_password_123
+      POSTGRES_DB: shopcloud_auth
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shopcloud-network
+
+  # 2. MongoDB - Dùng cho Product Service (Lưu thông tin sản phẩm linh hoạt)
+  mongodb:
+    image: mongo:6.0
+    container_name: shopcloud-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: shopcloud_admin
+      MONGO_INITDB_ROOT_PASSWORD: admin_password_123
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - shopcloud-network
+
+  # 3. Redis - Dùng cho Product Service (Cache & Khóa kho - Lock Stock)
+  redis-cache:
+    image: redis:7.0-alpine
+    container_name: shopcloud-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass admin_password_123
+    volumes:
+      - redis_data:/data
+    networks:
+      - shopcloud-network
+
+  # 4. Apache Kafka (bản đơn giản của Confluent) - Dùng cho Order Service truyền tin
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.0
+    container_name: shopcloud-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - shopcloud-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.0
+    container_name: shopcloud-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - shopcloud-network
+
+volumes:
+  postgres_data:
+  mongo_data:
+  redis_data:
+
+networks:
+  shopcloud-network:
+    driver: bridge

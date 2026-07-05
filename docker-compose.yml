@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # 1. PostgreSQL - Dùng cho Auth Service
+  # 1. PostgreSQL - Dùng cho Auth Services
   postgres-db:
     image: postgres:15-alpine
     container_name: shopcloud-postgres

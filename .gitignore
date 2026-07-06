@@ -1,0 +1,29 @@
+# Target build folders (Maven)
+**/target/
+*.jar
+*.war
+*.ear
+
+# Khắc phục lỗi file rác Windows ADS trong dự án của bạn
+*:Zone.Identifier
+
+# IDEs and Editors rác
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+**/logs/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Crash dumps
+stoplight.error

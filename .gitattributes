@@ -1,0 +1,14 @@
+# Thiết lập mặc định xử lý xuống dòng tự động
+* text=auto
+
+# Cố định định dạng LF cho các file script (Bắt buộc để chạy được trên Linux/Docker mượt mà)
+*.sh text eol=lf
+mvnw text eol=lf
+
+# Các file chạy của Windows giữ nguyên CRLF
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Giữ nguyên định dạng gốc cho file cấu hình hoặc data
+*.jpg binary
+*.png binary

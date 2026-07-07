@@ -1,4 +1,4 @@
-package main.java.com.shopcloud.order.entity;
+package com.shopcloud.order.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

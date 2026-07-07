@@ -1,9 +1,8 @@
-package main.java.com.shopcloud.product.document;
+package com.shopcloud.product.document;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.math.BigDecimal;
 
 @Document(collection = "products") // Định nghĩa tên Collection trong MongoDB
 @Getter
@@ -14,17 +13,21 @@ import java.math.BigDecimal;
 public class Product {
 
     @Id
-    private String productId; // MongoDB thường dùng String (ObjectId) làm khóa chính tự sinh
+    private String id; // MongoDB thường dùng String (ObjectId) làm khóa chính tự sinh
 
     // Thuộc tính cực kỳ quan trọng để liên kết sản phẩm này thuộc về Gian hàng nào
-    private Long sellerId; 
+    private Long shopId;
 
-    private String productName; // Tên sản phẩm
+    private String name; // Tên sản phẩm
     
     private String description;
     
-    private BigDecimal price;
+    private Double price;
 
     // Số lượng tồn kho (Sẽ được đồng bộ lên Redis phục vụ tính năng Khóa kho/Lock Stock khi Flash Sale)
-    private Integer stockQuantity; 
+    private Integer stockQuantity;
+
+    private String category;
+
+    private String imageUrl;
 }

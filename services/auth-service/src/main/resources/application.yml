@@ -14,3 +14,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: ShopCloudAuthServiceSecretKey256BitMinimumLengthRequired!!
+  expiration-ms: 86400000

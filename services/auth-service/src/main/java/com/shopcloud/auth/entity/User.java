@@ -1,7 +1,21 @@
-package main.java.com.shopcloud.auth.entity;
+package com.shopcloud.auth.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Set;
 
 @Entity
@@ -21,19 +35,17 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private String passwordHash; // Mật khẩu đã mã hóa lưu trữ bảo mật
+    private String passwordHash;
 
     @Column(unique = true, nullable = false)
     private String email;
 
-    // Lưu danh sách các vai trò (Roles) để JavaFX nhận diện Không gian (Space) tương ứng
-    // Dữ liệu nhỏ nhưng lúc nào cũng dùng
-    // Khi user đăng nhập, hệ thống gần như cần biết vai trò của họ
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
-    private Set<String> roles; // Chứa dữ liệu dạng: ROLE_BUYER, ROLE_SELLER, ROLE_ADMIN
+    private Set<String> roles;
 
     @Column(nullable = false)
-    private String status; // Trạng thái tài khoản: ACTIVE, LOCKED
+    @Builder.Default
+    private String status = "ACTIVE";
 }

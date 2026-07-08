@@ -14,32 +14,39 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity // Bật Spring security
+// Mọi request HTTP đều phải đi qua Security
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    // Kiểm tra token có hoạt động không 
+    // Nếu có đưa thông tin người dùng vào
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        // Tạo JwtAuthenticationFilter
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // Tạo 1 đối tượng duy nhất và lưu trong container
+        // Lưu mật khẩu dưới dạng bcrypt (VD: $2a$10$7qgJ....)
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
+            throws Exception { // Xác thực người dùng
         return authenticationConfiguration.getAuthenticationManager();
     }
+    // -> Quyết định đăng nhập thành công hay thất bại
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                // Chống giả mạo request khi dùng session + cookie
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth // Quy định quyền truy cập
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

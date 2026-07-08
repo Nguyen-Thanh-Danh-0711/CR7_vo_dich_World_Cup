@@ -17,6 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
+        // inject userRepository để truy vấn database
     }
 
     @Override
@@ -24,12 +25,18 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        return org.springframework.security.core.userdetails.User.builder()
+        return org.springframework.security.core.userdetails.User.builder() // Không phải entity User
+        // Spring Security không làm việc trực tiếp với entity
+        // Mà làm việc với UserDetails
                 .username(user.getUsername())
                 .password(user.getPasswordHash())
                 .authorities(user.getRoles().stream()
                         .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toSet()))
-                .build();
+                        .collect(Collectors.toSet())) // Thu lại các quyền thành 1 set
+                .build(); // Tạo ra đối tượng UserDetails
+                // Spring Security sẽ dùng chính đối tượng này để
+                // Kiểm tra mật khẩu.
+                // Kiểm tra quyền.
+                // Lưu thông tin xác thực trong SecurityContext
     }
 }

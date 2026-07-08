@@ -32,30 +32,35 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
-        String jwt = resolveToken(request);
+        String jwt = resolveToken(request); // Lấy JWT
 
-        if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
-            String username = jwtTokenProvider.getUsernameFromJWT(jwt);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) { // Kiểm tra token
+            // validateToken(jwt): Kiểm tra xem chữ ký đúng, token còn hạn, có bị sửa hay ko
+            String username = jwtTokenProvider.getUsernameFromJWT(jwt); // Lấy username
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username); // Lấy UserDetails
 
             UsernamePasswordAuthenticationToken authenticationToken =
+            //Tạo Authentication
+            // Đại diện cho người dùng đã xác thực
                     new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
                             userDetails.getAuthorities());
+                            // Thêm thông tin request
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            // Lưu thông tin người dùng u=của request hiện đại
         }
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response); // Cho request đi tiếp
     }
 
     private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
+        String bearerToken = request.getHeader("Authorization"); // Đọc header
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+            return bearerToken.substring(7); // Kiểm tra chuẩn JWT
         }
 
         return null;

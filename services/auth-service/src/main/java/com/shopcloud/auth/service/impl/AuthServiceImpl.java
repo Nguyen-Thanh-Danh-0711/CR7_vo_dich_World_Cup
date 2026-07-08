@@ -38,17 +38,18 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse register(RegisterRequest registerRequest) {
         if (Boolean.TRUE.equals(userRepository.existsByUsername(registerRequest.getUsername()))) {
             throw new RuntimeException("Username already exists: " + registerRequest.getUsername());
-        }
+        } // Không cho trùng username
 
         if (Boolean.TRUE.equals(userRepository.existsByEmail(registerRequest.getEmail()))) {
             throw new RuntimeException("Email already exists: " + registerRequest.getEmail());
-        }
+        } // 2 tài khoản không dùng chung email
 
-        Set<String> roles = resolveRoles(registerRequest.getRoles());
+        Set<String> roles = resolveRoles(registerRequest.getRoles()); // Nếu ko có j, mặc định là BUYER
 
         User user = User.builder()
                 .username(registerRequest.getUsername())
                 .passwordHash(passwordEncoder.encode(registerRequest.getPassword()))
+                // Lưu BCryptHash
                 .email(registerRequest.getEmail())
                 .roles(roles)
                 .status(ACTIVE_STATUS)

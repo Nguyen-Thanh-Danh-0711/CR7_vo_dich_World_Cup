@@ -9,9 +9,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
 
-    // Lấy danh sách sản phẩm thuộc về một cửa hàng cụ thể trong Seller Space.
     List<Product> findByShopId(Long shopId);
 
-    // Tìm kiếm danh sách sản phẩm theo danh mục để phục vụ Buyer Space.
-    List<Product> findByCategory(String category);
+    List<Product> findByStockQuantityGreaterThan(Integer quantity);
 }

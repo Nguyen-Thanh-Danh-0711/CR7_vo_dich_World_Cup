@@ -4,4 +4,4 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/product_db
+      uri: mongodb://shopcloud_admin:admin_password_123@localhost:27017/product_db?authSource=admin

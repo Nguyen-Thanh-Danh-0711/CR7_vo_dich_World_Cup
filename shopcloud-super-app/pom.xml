@@ -12,7 +12,22 @@
   <version>1.0.0</version>
   <name>shopcloud-super-app</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <javafx.version>21.0.2</javafx.version>
+  </properties>
+
   <dependencies>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -20,4 +35,17 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <configuration>
+          <mainClass>com.shopcloud.superapp.App</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

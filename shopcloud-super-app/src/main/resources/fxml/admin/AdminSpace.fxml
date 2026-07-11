@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      alignment="CENTER" spacing="12.0" style="-fx-padding: 24;">
-    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Quản Trị Admin"/>
-    <Label text="Duyệt shop, Locust load test, giám sát K8s..."/>
+<VBox alignment="CENTER" spacing="12.0" style="-fx-padding: 24;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="30.0">
+      <padding>
+         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+      </padding>
+      <children>
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+            <children>
+               <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #007bff; -fx-background-radius: 10; -fx-padding: 20; -fx-min-width: 200;">
+                  <children>
+                     <Label graphicTextGap="0.0" text="TỔNG ĐƠN HÀNG" textFill="WHITE" />
+                     <Label text="1234" textFill="WHITE" />
+                  </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #17a2b8; -fx-background-radius: 10; -fx-padding: 20; -fx-min-width: 200;">
+                  <children>
+                     <Label text="SHOP HOẠT ĐỘNG" textFill="WHITE" />
+                     <Label text="56" textFill="WHITE" />
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+            <children>
+               <Label text="Vùng điều khiển Server Cốt Lõi - Nguy hiểm!" />
+               <Button mnemonicParsing="false" style="-fx-background-color: #ff3b30; -fx-text-fill: white; -fx-font-size: 28px; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(255,0,0,0.5), 15, 0, 0, 0);" text="KÍCH HOẠT FLASH SALE" />
+            </children>
+         </VBox>
+      </children>
+   </VBox>
 </VBox>

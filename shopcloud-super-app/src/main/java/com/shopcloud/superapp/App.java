@@ -75,7 +75,7 @@ public class App extends Application {
         // UserSession.init("admin_ops", Set.of("ROLE_BUYER", "ROLE_SELLER", "ROLE_ADMIN"));
 
         // Nạp layout chính — controller sẽ đọc UserSession.getRoles() trong initialize()
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
         Parent root = loader.load();
 
         primaryStage.setTitle("ShopCloud Super App — " + UserSession.getUsername());

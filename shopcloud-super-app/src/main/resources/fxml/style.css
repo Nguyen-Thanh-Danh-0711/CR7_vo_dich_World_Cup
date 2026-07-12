@@ -1,0 +1,17 @@
+/* Hiệu ứng khi click chuột vào ô nhập liệu */
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #1E3A8A;
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* Hiệu ứng di chuột vào nút bấm */
+.button:hover {
+    -fx-background-color: #1D4ED8; /* Đổi sang xanh sáng khi di chuột vào */
+}
+
+.button:armed {
+    -fx-background-color: #172554; /* Đổi sang xanh đậm hẳn khi click giữ nút */
+}

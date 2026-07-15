@@ -3,37 +3,77 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<VBox alignment="CENTER" spacing="12.0" style="-fx-padding: 24;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
-   <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="30.0">
-      <padding>
-         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-      </padding>
-      <children>
-         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-            <children>
-               <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #007bff; -fx-background-radius: 10; -fx-padding: 20; -fx-min-width: 200;">
-                  <children>
-                     <Label graphicTextGap="0.0" text="TỔNG ĐƠN HÀNG" textFill="WHITE" />
-                     <Label text="1234" textFill="WHITE" />
-                  </children>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #17a2b8; -fx-background-radius: 10; -fx-padding: 20; -fx-min-width: 200;">
-                  <children>
-                     <Label text="SHOP HOẠT ĐỘNG" textFill="WHITE" />
-                     <Label text="56" textFill="WHITE" />
-                  </children>
-               </VBox>
-            </children>
-         </HBox>
-         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-            <children>
-               <Label text="Vùng điều khiển Server Cốt Lõi - Nguy hiểm!" />
-               <Button mnemonicParsing="false" style="-fx-background-color: #ff3b30; -fx-text-fill: white; -fx-font-size: 28px; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(255,0,0,0.5), 15, 0, 0, 0);" text="KÍCH HOẠT FLASH SALE" />
-            </children>
-         </VBox>
-      </children>
-   </VBox>
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" spacing="30.0" style="-fx-background-color: #F9FAFB;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   <children>
+      <!-- TOPBAR TIÊU ĐỀ -->
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #111827;" text="HỆ THỐNG QUẢN TRỊ ADMIN - SHOPCLOUD" />
+         </children>
+      </HBox>
+      
+      <!-- HÀNG CHỨA THẺ SỐ LIỆU TỰ ĐỘNG CO GIÃN (RESPONSIVE GRID) -->
+      <HBox alignment="CENTER" maxWidth="980.0" prefHeight="120.0" prefWidth="200.0" spacing="20.0" HBox.hgrow="ALWAYS">
+         <children>
+            <!-- THẺ 1: TỔNG ĐƠN HÀNG -->
+            <HBox maxWidth="480.0" prefHeight="120.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" color="#0000000d" offsetY="4.0" radius="10.0" />
+               </effect>
+               <children>
+                  <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-transform: uppercase;" text="TỔNG ĐƠN HÀNG" />
+                        <Label style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #1F2937;" text="1,245" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            
+            <!-- THẺ 2: CỬA HÀNG HOẠT ĐỘNG -->
+            <HBox maxWidth="480.0" prefHeight="120.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" color="#0000000d" offsetY="4.0" radius="10.0" />
+               </effect>
+               <children>
+                  <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-transform: uppercase;" text="CỬA HÀNG HOẠT ĐỘNG" />
+                        <Label style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #1F2937;" text="48" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      
+      <!-- KHU VỰC ĐIỀU HÀNH KHẨN CẤP -->
+      <VBox alignment="CENTER" maxWidth="980.0" prefHeight="250.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #F3F4F6; -fx-padding: 35;">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#00000008" offsetY="6.0" radius="15.0" />
+         </effect>
+         <children>
+            <Label style="-fx-text-fill: #9CA3AF; -fx-font-size: 11px; -fx-font-weight: bold; -fx-letter-spacing: 1px;" text="CHIẾN DỊCH KHẨN CẤP" />
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #111827;" text="Kích Hoạt Flash Sale Toàn Hệ Thống" />
+            <Label alignment="CENTER" maxWidth="650.0" style="-fx-text-fill: #6B7280; -fx-font-size: 14px; -fx-line-spacing: 4px;" text="Hành động này sẽ gửi tín hiệu kích hoạt đồng loạt sự kiện flash sale xuống các dịch vụ backend thông qua API đóng gói và đồng bộ Redis." textAlignment="CENTER" wrapText="true" />
+            <Button mnemonicParsing="false" styleClass="btn-flash-sale" stylesheets="@../style.css" text="KÍCH HOẠT FLASH SALE">
+               <effect>
+                  <DropShadow radius="15.0">
+                     <color>
+                        <Color red="0.9372549057006836" green="0.2666666805744171" blue="0.2666666805744171" opacity="0.3" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+         </children>
+      </VBox>
+   </children>
 </VBox>

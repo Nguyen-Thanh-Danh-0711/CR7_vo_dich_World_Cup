@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #F4F6F9;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #F4F6F9;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.shopcloud.superapp.controller.LoginController">
    <children>
       <HBox StackPane.alignment="CENTER">
          <children>
@@ -75,9 +75,9 @@
                                           <Font name="System Bold" size="28.0" />
                                        </font>
                                     </Label>
-                                    <TextField promptText="Tên đăng nhập hoặc email" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;" />
-                                    <PasswordField promptText="Mật khẩu" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 12; -fx-padding: 12;" />
-                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand;" text="ĐĂNG NHẬP">
+                                    <TextField fx:id="usernameField" promptText="Tên đăng nhập hoặc email" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;" />
+                                    <PasswordField fx:id="passwordField" promptText="Mật khẩu" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 12; -fx-padding: 12;" />
+                                    <Button mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="400.0" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand;" text="ĐĂNG NHẬP">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>

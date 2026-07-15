@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.stage.Stage;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.util.Set;
 
@@ -41,16 +41,16 @@ public class LoginController {
             throw new IllegalArgumentException("Tên đăng nhập và mật khẩu không được để trống!");
         }
 
-        // 2. Cơ chế Mock Data phân quyền linh hoạt theo Username để bạn dễ Test:
+        // 2. Cơ chế Mock Data phân quyền linh hoạt theo Username để dễ test:
         Set<String> roles;
         if ("admin_ops".equals(username)) {
-            // Kịch bản 3: Admin hệ thống - hiển thị đủ cả 3 không gian
+            // Kịch bản 3: Admin hệ thống — hiển thị đủ cả 3 không gian
             roles = Set.of("ROLE_BUYER", "ROLE_SELLER", "ROLE_ADMIN");
         } else if ("shop_cr7_official".equals(username)) {
-            // Kịch bản 2: Người bán (Shopee đã mở shop) - có không gian Buyer & Seller
+            // Kịch bản 2: Người bán (đã mở shop) — có không gian Buyer & Seller
             roles = Set.of("ROLE_BUYER", "ROLE_SELLER");
         } else {
-            // Kịch bản 1: Tài khoản người mua thông thường hoặc bất kỳ chuỗi nào khác
+            // Kịch bản 1: Tài khoản người mua thông thường hoặc bất kỳ username khác
             roles = Set.of("ROLE_BUYER");
         }
 
@@ -61,13 +61,10 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
         Parent mainViewRoot = loader.load();
 
-        // 5. Lấy Stage hiện tại từ sự kiện Click nút bấm và thực hiện chuyển cảnh
+        // 5. Lấy Stage hiện tại từ sự kiện click nút và thực hiện chuyển cảnh
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
-        // Cập nhật tiêu đề cửa sổ kèm tên Username đã đăng nhập thành công
+
         currentStage.setTitle("ShopCloud Super App — " + App.UserSession.getUsername());
-        
-        // Thay thế giao diện đăng nhập bằng giao diện chính của hệ thống
         currentStage.getScene().setRoot(mainViewRoot);
     }
 }

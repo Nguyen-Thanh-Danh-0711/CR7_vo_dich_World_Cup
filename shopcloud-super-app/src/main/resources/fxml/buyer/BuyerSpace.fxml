@@ -12,9 +12,8 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="600.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -34,7 +33,7 @@
                </padding>
                <children>
                   
-                        <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 12;" stylesheets="@../style.css">
+                  <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 12;" stylesheets="@../style.css">
                      <effect>
                         <DropShadow offsetY="5.0" radius="15.0">
                            <color>
@@ -49,19 +48,11 @@
                            </image>
                         </ImageView>
                         
-                              <Label text="Tên sản phẩm" textFill="#1f2937">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1f2937;" text="Tên sản phẩm" />
                         
-                              <Label text="100.000đ" textFill="#ef4444">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #ef4444;" text="100.000đ" />
                         
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="Mua ngay" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="Mua ngay" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 12;" stylesheets="@../style.css">
@@ -78,21 +69,15 @@
                               <Image url="@../assets/logo.png" />
                            </image>
                         </ImageView>
-                        <Label text="Tên sản phẩm" textFill="#1f2937">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="100.000đ" textFill="#ef4444">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
+                        
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1f2937;" text="Tên sản phẩm" />
+                        
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #ef4444;" text="100.000đ" />
+                        
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="Mua ngay" />
                      </children>
                   </VBox>
-                  
-                     </children>
+                  </children>
             </TilePane>
          </content>
       </ScrollPane>

@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #F4F6F9;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.shopcloud.superapp.controller.LoginController">
+<StackPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #F4F6F9;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.shopcloud.superapp.controller.LoginController">
    <children>
       <HBox StackPane.alignment="CENTER">
          <children>
@@ -52,6 +52,7 @@
                      <children>
                         <StackPane fx:id="formContainer">
                            <children>
+                              
                               <VBox fx:id="registerForm" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" visible="false" StackPane.alignment="TOP_LEFT">
                                  <children>
                                     <Label text="Tạo tài khoản mới">
@@ -63,8 +64,9 @@
                                     <TextField promptText="Email" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;" />
                                     <PasswordField promptText="Password" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" />
                                     <PasswordField promptText="Confirm password" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;" />
-                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand;" text="ĐĂNG KÝ" />
-                                    <Hyperlink text="Đã có tài khoản? Đăng nhập" textFill="#6b7280" />
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand;" text="ĐĂNG KÝ" />
+                                    
+                                    <Hyperlink onAction="#showLoginForm" text="Đã có tài khoản? Đăng nhập" textFill="#6b7280" />
                                  </children>
                               </VBox>
                               
@@ -77,14 +79,16 @@
                                     </Label>
                                     <TextField fx:id="usernameField" promptText="Tên đăng nhập hoặc email" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;" />
                                     <PasswordField fx:id="passwordField" promptText="Mật khẩu" style="-fx-background-color: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-background-radius: 12; -fx-padding: 12;" />
-                                    <Button mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="400.0" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand;" text="ĐĂNG NHẬP">
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand;" text="ĐĂNG NHẬP">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Hyperlink text="Chưa có tài khoản? Đăng ký ngay" textFill="#6b7280" />
+                                    
+                                    <Hyperlink onAction="#showRegisterForm" text="Chưa có tài khoản? Đăng ký ngay" textFill="#6b7280" />
                                  </children>
                               </VBox>
+                              
                            </children>
                         </StackPane>
                      </children>

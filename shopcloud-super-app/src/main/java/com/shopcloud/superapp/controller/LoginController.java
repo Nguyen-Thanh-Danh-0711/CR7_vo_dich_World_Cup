@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.Set;
@@ -21,14 +22,42 @@ import java.util.Set;
  */
 public class LoginController {
 
+    // --- CÁC THÀNH PHẦN CỦA FORM ĐĂNG NHẬP ---
+    @FXML
+    private VBox loginForm;
+
     @FXML
     private TextField usernameField;
 
     @FXML
     private PasswordField passwordField;
 
+    // --- CÁC THÀNH PHẦN CỦA FORM ĐĂNG KÝ ---
+    @FXML
+    private VBox registerForm;
+
     /**
-     * Xử lý sự kiện khi người dùng bấm nút "Đăng nhập".
+     * Sự kiện khi bấm "Chưa có tài khoản? Đăng ký ngay"
+     * Ẩn form đăng nhập, hiện form đăng ký
+     */
+    @FXML
+    private void showRegisterForm() {
+        loginForm.setVisible(false);
+        registerForm.setVisible(true);
+    }
+
+    /**
+     * Sự kiện khi bấm "Đã có tài khoản? Đăng nhập"
+     * Ẩn form đăng ký, hiện form đăng nhập
+     */
+    @FXML
+    private void showLoginForm() {
+        registerForm.setVisible(false);
+        loginForm.setVisible(true);
+    }
+
+    /**
+     * Xử lý sự kiện khi người dùng bấm nút "ĐĂNG NHẬP".
      * Khai báo "throws Exception" để đẩy mọi lỗi phát sinh lên hệ thống xử lý tập trung.
      */
     @FXML

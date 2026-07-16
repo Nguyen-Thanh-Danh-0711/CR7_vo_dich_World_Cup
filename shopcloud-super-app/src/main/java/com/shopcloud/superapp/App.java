@@ -79,7 +79,19 @@ public class App extends Application {
         Parent root = loader.load();
 
         primaryStage.setTitle("ShopCloud Super App — " + UserSession.getUsername());
-        primaryStage.setScene(new Scene(root, 1024, 640));
+        
+        // --- ĐOẠN ĐƯỢC CẬP NHẬT ---
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        
+        // Đặt kích thước tối thiểu để tránh người dùng kéo cửa sổ quá nhỏ làm vỡ/teo layout
+        primaryStage.setMinWidth(1024);
+        primaryStage.setMinHeight(640);
+        
+        // Ép cửa sổ mở toàn màn hình (Maximize) ngay khi khởi chạy
+        primaryStage.setMaximized(true);
+        // --------------------------
+
         primaryStage.show();
     }
 

@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #F4F6F9;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.shopcloud.superapp.controller.LoginController">
+<StackPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #F4F6F9;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.shopcloud.superapp.controller.LoginController">
    <children>
       <HBox StackPane.alignment="CENTER">
          <children>

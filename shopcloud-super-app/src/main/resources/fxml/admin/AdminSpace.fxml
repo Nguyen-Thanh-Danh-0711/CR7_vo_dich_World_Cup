@@ -8,22 +8,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" spacing="30.0" style="-fx-background-color: #F9FAFB;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="768.0" prefWidth="1024.0" spacing="30.0" style="-fx-background-color: #F9FAFB;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>
    <children>
-      <!-- TOPBAR TIÊU ĐỀ -->
       <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
          <children>
             <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #111827;" text="HỆ THỐNG QUẢN TRỊ ADMIN - SHOPCLOUD" />
          </children>
       </HBox>
       
-      <!-- HÀNG CHỨA THẺ SỐ LIỆU TỰ ĐỘNG CO GIÃN (RESPONSIVE GRID) -->
       <HBox alignment="CENTER" maxWidth="980.0" prefHeight="120.0" prefWidth="200.0" spacing="20.0" HBox.hgrow="ALWAYS">
          <children>
-            <!-- THẺ 1: TỔNG ĐƠN HÀNG -->
             <HBox maxWidth="480.0" prefHeight="120.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 20;" HBox.hgrow="ALWAYS">
                <effect>
                   <DropShadow blurType="GAUSSIAN" color="#0000000d" offsetY="4.0" radius="10.0" />
@@ -38,7 +35,6 @@
                </children>
             </HBox>
             
-            <!-- THẺ 2: CỬA HÀNG HOẠT ĐỘNG -->
             <HBox maxWidth="480.0" prefHeight="120.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 20;" HBox.hgrow="ALWAYS">
                <effect>
                   <DropShadow blurType="GAUSSIAN" color="#0000000d" offsetY="4.0" radius="10.0" />
@@ -55,7 +51,6 @@
          </children>
       </HBox>
       
-      <!-- KHU VỰC ĐIỀU HÀNH KHẨN CẤP -->
       <VBox alignment="CENTER" maxWidth="980.0" prefHeight="250.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #F3F4F6; -fx-padding: 35;">
          <effect>
             <DropShadow blurType="GAUSSIAN" color="#00000008" offsetY="6.0" radius="15.0" />

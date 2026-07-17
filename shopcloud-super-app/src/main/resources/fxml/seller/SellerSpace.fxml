@@ -13,43 +13,80 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="700.0" prefWidth="1000.0" spacing="10.0" style="-fx-background-color:#F3F4F6;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="700.0" prefWidth="1000.0" spacing="10.0"
+      style="-fx-background-color:#F3F4F6;"
+      xmlns="http://javafx.com/javafx/26"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.shopcloud.superapp.controller.SellerSpaceController">
     <padding><Insets bottom="15" left="15" right="15" top="15" /></padding>
     <children>
         <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane>
                     <children>
-                        <VBox alignment="TOP_CENTER" spacing="12" style="-fx-background-color:white;-fx-background-radius:12;-fx-border-color:#E5E7EB;-fx-border-radius:12;-fx-border-width:1;-fx-padding:15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="TOP_CENTER" spacing="12"
+                              style="-fx-background-color:white;-fx-background-radius:12;-fx-border-color:#E5E7EB;-fx-border-radius:12;-fx-border-width:1;-fx-padding:15;"
+                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <effect><DropShadow /></effect>
                             <children>
-                                <Label text="Đăng bán sản phẩm mới"><font><Font name="System Bold" size="18" /></font></Label>
-                                <Label text="Tên sản phẩm"><font><Font name="System Bold" size="12" /></font></Label>
-                                <TextField maxWidth="1.7976931348623157E308" promptText="Nhập tên sản phẩm" />
-                                <Label text="Đơn giá (VNĐ)"><font><Font name="System Bold" size="12" /></font></Label>
-                                <TextField maxWidth="1.7976931348623157E308" promptText="Nhập giá tiền" />
-                                <Label text="Mô tả chi tiết"><font><Font name="System Bold" size="12" /></font></Label>
-                                <TextArea promptText="Nhập mô tả chi tiết" wrapText="true" VBox.vgrow="ALWAYS" />
-                                <Button style="-fx-background-color:#10B981;-fx-text-fill:white;-fx-font-weight:bold;-fx-background-radius:8;-fx-padding:10 25 10 25;" text="Đăng bán" />
+                                <Label text="Đăng bán sản phẩm mới">
+                                    <font><Font name="System Bold" size="18" /></font>
+                                </Label>
+                                <Label text="Tên sản phẩm">
+                                    <font><Font name="System Bold" size="12" /></font>
+                                </Label>
+                                <TextField fx:id="productNameField"
+                                           maxWidth="1.7976931348623157E308"
+                                           promptText="Nhập tên sản phẩm" />
+                                <Label text="Đơn giá (VNĐ)">
+                                    <font><Font name="System Bold" size="12" /></font>
+                                </Label>
+                                <TextField fx:id="productPriceField"
+                                           maxWidth="1.7976931348623157E308"
+                                           promptText="Nhập giá tiền" />
+                                <Label text="Mô tả chi tiết">
+                                    <font><Font name="System Bold" size="12" /></font>
+                                </Label>
+                                <TextArea fx:id="productDescriptionArea"
+                                          promptText="Nhập mô tả chi tiết"
+                                          wrapText="true"
+                                          VBox.vgrow="ALWAYS" />
+                                <Button fx:id="btnPublish"
+                                        mnemonicParsing="false"
+                                        onAction="#handlePublishProduct"
+                                        style="-fx-background-color:#10B981;-fx-text-fill:white;-fx-font-weight:bold;-fx-background-radius:8;-fx-padding:10 25 10 25;"
+                                        text="Đăng bán" />
                             </children>
                         </VBox>
                     </children>
                 </AnchorPane>
                 <AnchorPane>
                     <children>
-                        <VBox alignment="TOP_CENTER" spacing="10" style="-fx-background-color:white;-fx-background-radius:12;-fx-border-color:#E5E7EB;-fx-border-radius:12;-fx-border-width:1;-fx-padding:15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="TOP_CENTER" spacing="10"
+                              style="-fx-background-color:white;-fx-background-radius:12;-fx-border-color:#E5E7EB;-fx-border-radius:12;-fx-border-width:1;-fx-padding:15;"
+                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <effect><DropShadow /></effect>
                             <children>
-                                <Label alignment="TOP_CENTER" text="Sản phẩm của tôi"><font><Font name="System Bold" size="18" /></font></Label>
-                                <TableView VBox.vgrow="ALWAYS">
+                                <Label alignment="TOP_CENTER" text="Sản phẩm của tôi">
+                                    <font><Font name="System Bold" size="18" /></font>
+                                </Label>
+                                <TableView fx:id="productTable" VBox.vgrow="ALWAYS">
                                     <columns>
-                                        <TableColumn prefWidth="200.0" text="Mã SP" />
-                                        <TableColumn prefWidth="240.0" text="Tên sản phẩm" />
-                                        <TableColumn prefWidth="200.0" text="Đơn giá" />
+                                        <TableColumn fx:id="colProductId"
+                                                     prefWidth="200.0"
+                                                     text="Mã SP" />
+                                        <TableColumn fx:id="colProductName"
+                                                     prefWidth="240.0"
+                                                     text="Tên sản phẩm" />
+                                        <TableColumn fx:id="colProductPrice"
+                                                     prefWidth="200.0"
+                                                     text="Đơn giá" />
                                     </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
                                 </TableView>
                             </children>
                         </VBox>

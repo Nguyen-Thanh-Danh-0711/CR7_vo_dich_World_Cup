@@ -1,4 +1,4 @@
-package main.java.com.shopcloud.superapp.controller;
+package com.shopcloud.superapp.controller;
 
 import com.shopcloud.superapp.App;
 import javafx.event.ActionEvent;
@@ -62,25 +62,33 @@ public class LoginController {
      */
     @FXML
     private void handleLogin(ActionEvent event) throws Exception {
-        String username = usernameField.getText().trim();
+        String username = usernameField.getText();
         String password = passwordField.getText();
+
+        if (username == null) {
+            username = "";
+        }
+        username = username.trim();
+
+        if (password == null) {
+            password = "";
+        }
 
         // 1. Kiểm tra validate cơ bản (Nếu trống sẽ ném ngoại lệ để Global Handler bắt lấy)
         if (username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("Tên đăng nhập và mật khẩu không được để trống!");
         }
 
-        // 2. Cơ chế Mock Data phân quyền linh hoạt theo Username để dễ test:
+        // 2. Cơ chế Mock Data phân quyền linh hoạt theo Username:
         Set<String> roles;
-        if ("admin_ops".equals(username)) {
-            // Kịch bản 3: Admin hệ thống — hiển thị đủ cả 3 không gian
-            roles = Set.of("ROLE_BUYER", "ROLE_SELLER", "ROLE_ADMIN");
-        } else if ("shop_cr7_official".equals(username)) {
-            // Kịch bản 2: Người bán (đã mở shop) — có không gian Buyer & Seller
-            roles = Set.of("ROLE_BUYER", "ROLE_SELLER");
-        } else {
-            // Kịch bản 1: Tài khoản người mua thông thường hoặc bất kỳ username khác
+        if ("nguyen_van_a".equals(username)) {
             roles = Set.of("ROLE_BUYER");
+        } else if ("shop_cr7_official".equals(username)) {
+            roles = Set.of("ROLE_BUYER", "ROLE_SELLER");
+        } else if ("admin_ops".equals(username)) {
+            roles = Set.of("ROLE_BUYER", "ROLE_SELLER", "ROLE_ADMIN");
+        } else {
+            throw new IllegalArgumentException("Tài khoản không tồn tại trên hệ thống!");
         }
 
         // 3. Khởi tạo session toàn cục lưu vào App.UserSession
@@ -93,7 +101,7 @@ public class LoginController {
         // 5. Lấy Stage hiện tại từ sự kiện click nút và thực hiện chuyển cảnh
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        currentStage.setTitle("ShopCloud Super App — " + App.UserSession.getUsername());
+        currentStage.setTitle("ShopCloud Super App — Workspace Portal");
         currentStage.getScene().setRoot(mainViewRoot);
     }
 }

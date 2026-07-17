@@ -64,22 +64,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // ── Mock Data: đổi kịch bản bên dưới để thử phân quyền Workspace ──
-
-        // Kịch bản 1 — Chỉ người mua (mặc định Shopee): menu Seller & Admin bị ẩn
-        // UserSession.init("nguyen_van_a", Set.of("ROLE_BUYER"));
-
-        // Kịch bản 2 — Người bán đã "Mở Shop": hiện Kênh Người Bán, ẩn Admin
-        UserSession.init("shop_cr7_official", Set.of("ROLE_BUYER", "ROLE_SELLER"));
-
-        // Kịch bản 3 — Nhân viên vận hành ShopCloud: hiện đủ 3 không gian
-        // UserSession.init("admin_ops", Set.of("ROLE_BUYER", "ROLE_SELLER", "ROLE_ADMIN"));
-
-        // Nạp layout chính — controller sẽ đọc UserSession.getRoles() trong initialize()
+        // Session được khởi tạo sau khi đăng nhập thành công tại LoginController.
+        // Màn hình đầu tiên luôn là LoginView — phân quyền mock được chọn qua username.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
         Parent root = loader.load();
 
-        primaryStage.setTitle("ShopCloud Super App — " + UserSession.getUsername());
+        primaryStage.setTitle("ShopCloud Super App — Đăng nhập");
 
         // --- ĐOẠN ĐƯỢC CẬP NHẬT ĐỂ SỬA LỖI NÚT PHÓNG TO MÀN HÌNH ---
 

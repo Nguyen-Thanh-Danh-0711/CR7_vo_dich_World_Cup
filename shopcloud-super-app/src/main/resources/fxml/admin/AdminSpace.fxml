@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<VBox alignment="CENTER" prefHeight="768.0" prefWidth="1024.0" spacing="30.0" style="-fx-background-color: #F9FAFB;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="768.0" prefWidth="1024.0" spacing="30.0" style="-fx-background-color: #F9FAFB;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.AdminSpaceController">
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>
@@ -29,7 +29,7 @@
                   <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-transform: uppercase;" text="TỔNG ĐƠN HÀNG" />
-                        <Label style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #1F2937;" text="1,245" />
+                        <Label fx:id="totalOrdersLabel" style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #1F2937;" text="1,245" />
                      </children>
                   </VBox>
                </children>
@@ -43,7 +43,7 @@
                   <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-transform: uppercase;" text="CỬA HÀNG HOẠT ĐỘNG" />
-                        <Label style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #1F2937;" text="48" />
+                        <Label fx:id="activeShopsLabel" style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #1F2937;" text="48" />
                      </children>
                   </VBox>
                </children>
@@ -59,7 +59,7 @@
             <Label style="-fx-text-fill: #9CA3AF; -fx-font-size: 11px; -fx-font-weight: bold; -fx-letter-spacing: 1px;" text="CHIẾN DỊCH KHẨN CẤP" />
             <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #111827;" text="Kích Hoạt Flash Sale Toàn Hệ Thống" />
             <Label alignment="CENTER" maxWidth="650.0" style="-fx-text-fill: #6B7280; -fx-font-size: 14px; -fx-line-spacing: 4px;" text="Hành động này sẽ gửi tín hiệu kích hoạt đồng loạt sự kiện flash sale xuống các dịch vụ backend thông qua API đóng gói và đồng bộ Redis." textAlignment="CENTER" wrapText="true" />
-            <Button mnemonicParsing="false" styleClass="btn-flash-sale" stylesheets="@../style.css" text="KÍCH HOẠT FLASH SALE">
+            <Button fx:id="btnTriggerFlashSale" mnemonicParsing="false" onAction="#handleKichHoatFlashSale" styleClass="btn-flash-sale" stylesheets="@../style.css" text="KÍCH HOẠT FLASH SALE">
                <effect>
                   <DropShadow radius="15.0">
                      <color>

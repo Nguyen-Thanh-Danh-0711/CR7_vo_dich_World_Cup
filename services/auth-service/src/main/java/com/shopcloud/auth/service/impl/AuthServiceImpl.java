@@ -4,6 +4,7 @@ import com.shopcloud.auth.dto.AuthResponse;
 import com.shopcloud.auth.dto.LoginRequest;
 import com.shopcloud.auth.dto.RegisterRequest;
 import com.shopcloud.auth.entity.User;
+import com.shopcloud.auth.exception.BadRequestException;
 import com.shopcloud.auth.repository.UserRepository;
 import com.shopcloud.auth.security.JwtTokenProvider;
 import com.shopcloud.auth.service.AuthService;
@@ -37,11 +38,11 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public AuthResponse register(RegisterRequest registerRequest) {
         if (Boolean.TRUE.equals(userRepository.existsByUsername(registerRequest.getUsername()))) {
-            throw new RuntimeException("Username already exists: " + registerRequest.getUsername());
+            throw new BadRequestException("Username already exists: " + registerRequest.getUsername());
         } // Không cho trùng username
 
         if (Boolean.TRUE.equals(userRepository.existsByEmail(registerRequest.getEmail()))) {
-            throw new RuntimeException("Email already exists: " + registerRequest.getEmail());
+            throw new BadRequestException("Email already exists: " + registerRequest.getEmail());
         } // 2 tài khoản không dùng chung email
 
         Set<String> roles = resolveRoles(registerRequest.getRoles()); // Nếu ko có j, mặc định là BUYER
@@ -65,10 +66,10 @@ public class AuthServiceImpl implements AuthService {
     @Transactional(readOnly = true)
     public AuthResponse login(LoginRequest loginRequest) {
         User user = userRepository.findByUsername(loginRequest.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+                .orElseThrow(() -> new BadRequestException("Invalid username or password"));
 
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPasswordHash())) {
-            throw new RuntimeException("Invalid username or password");
+            throw new BadRequestException("Invalid username or password");
         }
 
         String accessToken = jwtTokenProvider.generateToken(user);

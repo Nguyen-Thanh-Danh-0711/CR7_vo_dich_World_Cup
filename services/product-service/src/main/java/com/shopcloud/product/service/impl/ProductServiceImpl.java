@@ -2,6 +2,7 @@ package com.shopcloud.product.service.impl;
 
 import com.shopcloud.product.document.Product;
 import com.shopcloud.product.dto.ProductRequest;
+import com.shopcloud.product.exception.ResourceNotFoundException;
 import com.shopcloud.product.repository.ProductRepository;
 import com.shopcloud.product.service.ProductService;
 import org.springframework.stereotype.Service;
@@ -45,8 +46,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(String id, ProductRequest request) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-                // TÌm sản phẩm theo id. Nếu ko có -> ném lỗi
+                .orElseThrow(() -> new ResourceNotFoundException("Sản phẩm không tồn tại với ID: " + id));
+                // Tìm sản phẩm theo id. Nếu không có -> ném lỗi 404 Not Found
 
         product.setShopId(request.getShopId());
         product.setName(request.getName());

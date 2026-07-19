@@ -62,6 +62,44 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Bắt và xử lý các lỗi nghiệp vụ sai tài khoản hoặc mật khẩu (BadCredentialsException).
+     * Trả về ResponseEntity mã HTTP 401 (Unauthorized).
+     */
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(
+            BadCredentialsException ex, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .error(HttpStatus.UNAUTHORIZED.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+    }
+
+    /**
+     * Bắt và xử lý các lỗi nghiệp vụ đăng ký tài khoản với username/email đã tồn tại (UserAlreadyExistsException).
+     * Trả về ResponseEntity mã HTTP 400 (Bad Request).
+     */
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(
+            UserAlreadyExistsException ex, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    /**
      * Bắt và xử lý các lỗi Validation khi dùng annotation @Valid trên dữ liệu đầu vào.
      * Trả về ResponseEntity mã HTTP 400 (Bad Request) kèm chi tiết lỗi vi phạm đầu tiên.
      */

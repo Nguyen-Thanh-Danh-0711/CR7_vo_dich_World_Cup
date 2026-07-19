@@ -62,6 +62,44 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Bắt và xử lý các lỗi nghiệp vụ sản phẩm hết hàng (OutOfStockException).
+     * Trả về ResponseEntity mã HTTP 400 (Bad Request).
+     */
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity<ErrorResponse> handleOutOfStockException(
+            OutOfStockException ex, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    /**
+     * Bắt và xử lý các lỗi nghiệp vụ cố tình truy cập trái phép đơn hàng của người khác (UnauthorizedOrderAccessException).
+     * Trả về ResponseEntity mã HTTP 403 (Forbidden).
+     */
+    @ExceptionHandler(UnauthorizedOrderAccessException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedOrderAccessException(
+            UnauthorizedOrderAccessException ex, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.FORBIDDEN.value())
+                .error(HttpStatus.FORBIDDEN.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+    }
+
+    /**
      * Bắt và xử lý các lỗi Validation khi dùng annotation @Valid trên dữ liệu đầu vào.
      * Trả về ResponseEntity mã HTTP 400 (Bad Request) kèm chi tiết lỗi vi phạm đầu tiên.
      */

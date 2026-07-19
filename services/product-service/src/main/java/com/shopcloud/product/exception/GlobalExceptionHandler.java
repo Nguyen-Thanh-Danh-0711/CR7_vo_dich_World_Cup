@@ -43,6 +43,25 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Bắt và xử lý các lỗi nghiệp vụ không tìm thấy sản phẩm (ProductNotFoundException).
+     * Trả về ResponseEntity mã HTTP 404 (Not Found) kèm thông điệp rõ ràng.
+     */
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleProductNotFoundException(
+            ProductNotFoundException ex, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    /**
      * Bắt và xử lý các lỗi nghiệp vụ dữ liệu không hợp lệ (BadRequestException, IllegalArgumentException).
      * Trả về ResponseEntity mã HTTP 400 (Bad Request).
      */

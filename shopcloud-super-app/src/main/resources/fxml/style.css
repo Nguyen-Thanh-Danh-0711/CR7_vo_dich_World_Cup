@@ -269,3 +269,73 @@
     -fx-text-fill: #2563EB;
     -fx-underline: true;
 }
+
+/* ==========================================================================
+   7. ẨN NÚT MŨI TÊN CUỘN & TỐI ƯU THANH CUỘN (SCROLL BAR CLEANUP)
+   ==========================================================================
+   Loại bỏ hoàn toàn các nút mũi tên điều hướng (increment/decrement buttons)
+   ở hai đầu thanh cuộn ngang và dọc trên toàn bộ ứng dụng.
+   Người dùng vẫn cuộn mượt mà bằng con lăn chuột (Mouse Wheel) hoặc kéo thumb.
+   ========================================================================== */
+
+/* --- Ẩn nút bấm mũi tên ở hai đầu thanh cuộn (Scroll Arrow Buttons) --- */
+.scroll-bar:horizontal .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:vertical .increment-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+    -fx-shape: null;
+}
+
+/* --- Ẩn hình mũi tên bên trong nút (Arrow Shapes) --- */
+.scroll-bar:horizontal .decrement-arrow,
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:vertical .decrement-arrow,
+.scroll-bar:vertical .increment-arrow {
+    -fx-padding: 0;
+    -fx-shape: null;
+    -fx-opacity: 0;
+}
+
+/* --- Tối ưu thanh cuộn: mỏng, hiện đại, bo tròn --- */
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Track (đường ray) thanh cuộn */
+.scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+}
+
+/* Thumb (nút kéo) thanh cuộn — hiển thị mỏng, bo tròn, xám nhạt */
+.scroll-bar .thumb {
+    -fx-background-color: #D1D5DB;
+    -fx-background-radius: 10;
+}
+
+/* Thumb đậm hơn khi hover chuột */
+.scroll-bar .thumb:hover {
+    -fx-background-color: #9CA3AF;
+}
+
+/* Thumb đậm nhất khi đang kéo giữ */
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #6B7280;
+}
+
+/* Thanh cuộn dọc: thu hẹp chiều rộng */
+.scroll-bar:vertical {
+    -fx-pref-width: 8;
+}
+
+/* Thanh cuộn ngang: thu hẹp chiều cao */
+.scroll-bar:horizontal {
+    -fx-pref-height: 8;
+}

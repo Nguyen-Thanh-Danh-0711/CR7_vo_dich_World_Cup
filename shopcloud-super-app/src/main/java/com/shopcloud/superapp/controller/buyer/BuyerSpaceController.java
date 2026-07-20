@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -30,7 +31,7 @@ import javafx.util.Duration;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.NumberFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -41,9 +42,7 @@ import java.util.stream.Collectors;
  * Controller quản lý Không gian Người Mua (Buyer Space).
  * <p>
  * Trách nhiệm theo SRP: Quản lý danh sách sản phẩm, thực hiện tìm kiếm/lọc/sắp xếp tức thì,
- * quản lý trạng thái giỏ hàng tạm thời và hiển thị modal chi tiết sản phẩm.
- * Không tự nuốt lỗi nặng — các ngoại lệ khi nạp FXML modal được ném ra để
- * {@link com.shopcloud.superapp.exception.GlobalExceptionHandler} xử lý tập trung.
+ * phân định rõ ràng hai luồng xử lý sự kiện "Thêm vào giỏ" và "Mua ngay", hiển thị modal chi tiết sản phẩm.
  */
 public class BuyerSpaceController implements Initializable {
 
@@ -91,7 +90,7 @@ public class BuyerSpaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. Khởi tạo dữ liệu sản phẩm mẫu (thang điểm 10, lượt bán, giá cả)
+        // 1. Khởi tạo dữ liệu sản phẩm mẫu
         loadMockProductCatalog();
 
         // 2. Khởi tạo ComboBox sắp xếp
@@ -181,7 +180,7 @@ public class BuyerSpaceController implements Initializable {
     private VBox createProductCard(Product product) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.TOP_CENTER);
-        card.setPrefWidth(260);
+        card.setPrefWidth(270);
         card.getStyleClass().add("product-card");
 
         DropShadow shadow = new DropShadow();
@@ -217,24 +216,33 @@ public class BuyerSpaceController implements Initializable {
         priceLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #EF4444;");
         priceLabel.setMaxWidth(Double.MAX_VALUE);
 
-        // Thanh công cụ thao tác trên Card
-        HBox buttonBox = new HBox(8);
+        // Thanh công cụ thao tác trên Card chứa 3 nút bấm phân định rõ ràng
+        HBox buttonBox = new HBox(6);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setMaxWidth(Double.MAX_VALUE);
 
+        // Nút 1: Thêm vào giỏ
         Button btnAddToCart = new Button("Thêm giỏ");
         btnAddToCart.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(btnAddToCart, javafx.scene.layout.Priority.ALWAYS);
-        btnAddToCart.setStyle("-fx-background-color: #EFF6FF; -fx-text-fill: #2563EB; -fx-font-weight: bold; -fx-background-radius: 16; -fx-border-color: #BFDBFE; -fx-border-radius: 16; -fx-cursor: hand; -fx-font-size: 12px; -fx-padding: 6 10 6 10;");
-        btnAddToCart.setOnAction(e -> addToCart(product, 1));
+        btnAddToCart.setStyle("-fx-background-color: #EFF6FF; -fx-text-fill: #2563EB; -fx-font-weight: bold; -fx-background-radius: 14; -fx-border-color: #BFDBFE; -fx-border-radius: 14; -fx-cursor: hand; -fx-font-size: 11px; -fx-padding: 6 6 6 6;");
+        btnAddToCart.setOnAction(e -> handleAddToCart(product, 1));
 
+        // Nút 2: Mua ngay
+        Button btnBuyNow = new Button("Mua ngay");
+        btnBuyNow.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(btnBuyNow, javafx.scene.layout.Priority.ALWAYS);
+        btnBuyNow.setStyle("-fx-background-color: #F97316; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 14; -fx-cursor: hand; -fx-font-size: 11px; -fx-padding: 6 6 6 6;");
+        btnBuyNow.setOnAction(e -> handleBuyNow(product, 1));
+
+        // Nút 3: Xem chi tiết
         Button btnDetails = new Button("Chi tiết");
         btnDetails.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(btnDetails, javafx.scene.layout.Priority.ALWAYS);
-        btnDetails.setStyle("-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 16; -fx-cursor: hand; -fx-font-size: 12px; -fx-padding: 6 10 6 10;");
+        btnDetails.setStyle("-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 14; -fx-cursor: hand; -fx-font-size: 11px; -fx-padding: 6 6 6 6;");
         btnDetails.setOnAction(e -> openProductDetailModal(product));
 
-        buttonBox.getChildren().addAll(btnAddToCart, btnDetails);
+        buttonBox.getChildren().addAll(btnAddToCart, btnBuyNow, btnDetails);
 
         card.getChildren().addAll(imageView, nameLabel, metaBox, priceLabel, buttonBox);
         return card;
@@ -245,8 +253,8 @@ public class BuyerSpaceController implements Initializable {
      */
     private ImageView createProductImageView(String imageUrl) {
         ImageView imageView = new ImageView();
-        imageView.setFitHeight(150);
-        imageView.setFitWidth(230);
+        imageView.setFitHeight(140);
+        imageView.setFitWidth(240);
         imageView.setPreserveRatio(true);
 
         try {
@@ -268,17 +276,34 @@ public class BuyerSpaceController implements Initializable {
     }
 
     /**
-     * Thêm sản phẩm vào giỏ hàng, cập nhật badge giỏ hàng và hiển thị Toast thông báo nhẹ.
+     * 1. EVENT HANDLER 1: Thêm sản phẩm vào giỏ hàng và cập nhật badge hiển thị.
      */
-    private void addToCart(Product product, int quantity) {
+    public void handleAddToCart(Product product, int quantity) {
         totalCartCount += quantity;
         cartCountLabel.setText("Giỏ hàng: " + totalCartCount);
         showToast("Đã thêm " + quantity + " x \"" + product.getName() + "\" vào giỏ hàng thành công!");
     }
 
     /**
+     * 2. EVENT HANDLER 2: Xử lý đặt mua ngay sản phẩm (chuyển hướng / tạo đơn hàng tức thì).
+     */
+    public void handleBuyNow(Product product, int quantity) {
+        double totalPrice = product.getPrice() * quantity;
+        NumberFormat currencyFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
+        String formattedTotal = currencyFormat.format(totalPrice) + "đ";
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("ShopCloud — Xác nhận đơn hàng");
+        alert.setHeaderText("Tạo đơn hàng thành công!");
+        alert.setContentText("Đã tạo đơn hàng thành công cho sản phẩm:\n"
+                + "• Tên sản phẩm: " + product.getName() + "\n"
+                + "• Số lượng: " + quantity + "\n"
+                + "• Tổng tiền thanh toán: " + formattedTotal);
+        alert.showAndWait();
+    }
+
+    /**
      * Mở Pop-up Modal xem chi tiết sản phẩm.
-     * Ngoại lệ hệ thống khi load FXML ném ra ngoài để GlobalExceptionHandler xử lý.
      */
     private void openProductDetailModal(Product product) {
         try {
@@ -286,7 +311,7 @@ public class BuyerSpaceController implements Initializable {
             Parent root = loader.load();
 
             ProductDetailController controller = loader.getController();
-            controller.setProduct(product, this::addToCart);
+            controller.setProduct(product, this::handleAddToCart, this::handleBuyNow);
 
             Stage modalStage = new Stage();
             modalStage.setTitle("Chi tiết sản phẩm - " + product.getName());

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="650.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.BuyerSpaceController">
+<VBox prefHeight="650.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.BuyerSpaceController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -19,7 +19,7 @@
       <!-- Header bar: Tiêu đề & Giỏ hàng badge -->
       <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #FFFFFF; -fx-padding: 12 20 12 20; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12;">
          <children>
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
                   <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;" text="ShopCloud Marketplace" />
                   <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" text="Khám phá hàng ngàn sản phẩm chính hãng với ưu đãi tốt nhất" />
@@ -42,8 +42,8 @@
             <!-- ComboBox sắp xếp -->
             <ComboBox fx:id="sortComboBox" prefWidth="220.0" promptText="Sắp xếp theo..." style="-fx-background-color: #F3F4F6; -fx-background-radius: 20; -fx-border-radius: 20; -fx-padding: 4 10 4 10; -fx-font-weight: bold;" />
 
-            <!-- Nút Tìm kiếm -->
-            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#handleSearch" styleClass="btn-primary" text="Tìm kiếm" />
+            <!-- Nút Tìm kiếm hiển thị nổi bật 100% -->
+            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#handleSearch" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 20 8 20; -fx-cursor: hand;" styleClass="btn-primary" text="Tìm kiếm" />
          </children>
          <effect>
             <DropShadow color="#00000008" offsetY="2" radius="6" />

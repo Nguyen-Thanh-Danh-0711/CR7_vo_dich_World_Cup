@@ -1,24 +1,24 @@
 /* ==========================================================================
-   1. ĐỊNH NGHĨA BIẾN TOÀN CỤC (PALETTE MÀU CHỦ ĐẠO CỦA SHOPCLOUD)
+   1. ĐỊNH NGHĨA BIẾN TOÀN CỤC CHUẨN JAVAFX CSS (-fx- prefix)
    ========================================================================== */
 .root {
-    -color-brand-navy: #1E3A8A;    /* Royal Navy - Uy tín, bảo mật */
-    -color-brand-blue: #2563EB;    /* Neon Blue - Hiện đại, công nghệ */
-    -color-success: #10B981;       /* Green - Thành công, thêm mới */
-    -color-success-hover: #059669; /* Green đậm khi hover */
-    -color-danger: #EF4444;        /* Red - Cảnh báo, khẩn cấp, giá cả */
-    -color-bg: #F9FAFB;            /* Xám cực sáng làm nền chính */
-    -color-card: #FFFFFF;          /* Trắng làm nền Card */
-    -color-border: #E5E7EB;        /* Viền xám nhạt */
+    -fx-color-brand-navy: #1E3A8A;    /* Royal Navy - Uy tín, bảo mật */
+    -fx-color-brand-blue: #2563EB;    /* Neon Blue - Hiện đại, công nghệ */
+    -fx-color-success: #10B981;       /* Green - Thành công, thêm mới */
+    -fx-color-success-hover: #059669; /* Green đậm khi hover */
+    -fx-color-danger: #EF4444;        /* Red - Cảnh báo, khẩn cấp, giá cả */
+    -fx-color-bg: #F9FAFB;            /* Xám cực sáng làm nền chính */
+    -fx-color-card: #FFFFFF;          /* Trắng làm nền Card */
+    -fx-color-border: #E5E7EB;        /* Viền xám nhạt */
     
-    -text-primary: #111827;        /* Đen than */
-    -text-secondary: #6B7280;      /* Xám */
-    -text-muted: #9CA3AF;          /* Xám nhạt */
+    -fx-text-primary: #111827;        /* Đen than */
+    -fx-text-secondary: #6B7280;      /* Xám */
+    -fx-text-muted: #9CA3AF;          /* Xám nhạt */
 }
 
 /* Nền tảng giao diện */
 .main-container {
-    -fx-background-color: -color-bg;
+    -fx-background-color: #F9FAFB;
 }
 
 /* ==========================================================================
@@ -26,18 +26,18 @@
    ========================================================================== */
 .text-field, .password-field {
     -fx-background-color: #F9FAFB;
-    -fx-border-color: -color-border;
+    -fx-border-color: #E5E7EB;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
     -fx-padding: 11 15;
-    -fx-text-fill: -text-primary;
+    -fx-text-fill: #111827;
     -fx-font-size: 13px;
 }
 
 /* Hiệu ứng khi click chọn vào ô nhập liệu (Focus) */
 .text-field:focused, .password-field:focused {
     -fx-background-color: #FFFFFF;
-    -fx-border-color: -color-brand-blue;
+    -fx-border-color: #2563EB;
     -fx-border-width: 1.5px;
 }
 
@@ -46,11 +46,12 @@
     -fx-background-radius: 20;
     -fx-border-radius: 20;
     -fx-background-color: #FFFFFF;
-    -fx-border-color: -color-border;
+    -fx-border-color: #E5E7EB;
     -fx-padding: 8 15;
+    -fx-text-fill: #111827;
 }
 .search-field:focused {
-    -fx-border-color: -color-brand-navy;
+    -fx-border-color: #1E3A8A;
 }
 
 /* ==========================================================================
@@ -62,14 +63,15 @@
 
 /* Nút chính (Xanh đậm - Tìm kiếm / Đăng nhập) */
 .btn-primary {
-    -fx-background-color: -color-brand-navy;
+    -fx-background-color: #2563EB;
     -fx-text-fill: white;
-    -fx-background-radius: 20;
+    -fx-background-radius: 6;
     -fx-padding: 8 20;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 .btn-primary:hover {
-    -fx-background-color: #2563EB; /* Sáng lên khi di chuột */
+    -fx-background-color: #1D4ED8; /* Sáng/đậm lên khi di chuột */
 }
 .btn-primary:pressed {
     -fx-scale-x: 0.98; /* Co nhẹ nút lại khi click */
@@ -78,7 +80,7 @@
 
 /* Nút phụ / Nút mua ngay (Xanh Neon) */
 .btn-secondary {
-    -fx-background-color: -color-brand-blue;
+    -fx-background-color: #2563EB;
     -fx-text-fill: white;
     -fx-background-radius: 20;
     -fx-font-weight: bold;
@@ -94,14 +96,14 @@
 
 /* Nút Đăng bán / Thêm mới (Màu xanh lá cây) */
 .btn-success {
-    -fx-background-color: -color-success;
+    -fx-background-color: #10B981;
     -fx-text-fill: white;
     -fx-background-radius: 8;
     -fx-font-weight: bold;
     -fx-padding: 10 20;
 }
 .btn-success:hover {
-    -fx-background-color: -color-success-hover;
+    -fx-background-color: #059669;
 }
 
 /* Siêu nút Flash Sale Khẩn Cấp (Gradient Đỏ rực lửa) */
@@ -124,18 +126,18 @@
    ========================================================================== */
 /* Thẻ chung */
 .card {
-    -fx-background-color: -color-card;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 12;
-    -fx-border-color: -color-border;
+    -fx-border-color: #E5E7EB;
     -fx-border-radius: 12;
     -fx-border-width: 1;
 }
 
 /* Thẻ số liệu thông minh (Admin Space) */
 .stats-card {
-    -fx-background-color: -color-card;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 12;
-    -fx-border-color: -color-border;
+    -fx-border-color: #E5E7EB;
     -fx-border-radius: 12;
     -fx-border-width: 1;
     -fx-padding: 15 20;
@@ -143,20 +145,20 @@
 
 /* Thẻ sản phẩm (Buyer Space) */
 .product-card {
-    -fx-background-color: -color-card;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 12;
-    -fx-border-color: -color-border;
+    -fx-border-color: #E5E7EB;
     -fx-border-radius: 12;
     -fx-border-width: 1;
     -fx-padding: 12;
 }
 .product-card:hover {
-    -fx-border-color: -color-brand-blue; /* Đổi màu viền khi di chuột qua */
+    -fx-border-color: #2563EB; /* Đổi màu viền khi di chuột qua */
 }
 
 /* Khung khẩn cấp trung tâm */
 .emergency-card {
-    -fx-background-color: -color-card;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 14;
     -fx-border-color: #F3F4F6;
     -fx-padding: 30;
@@ -167,7 +169,7 @@
    ========================================================================== */
 .table-view {
     -fx-background-color: transparent;
-    -fx-border-color: -color-border;
+    -fx-border-color: #E5E7EB;
     -fx-border-width: 1;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
@@ -176,7 +178,7 @@
 /* Thanh đầu bảng */
 .table-view .column-header-background {
     -fx-background-color: #F9FAFB;
-    -fx-border-color: transparent transparent -color-border transparent;
+    -fx-border-color: transparent transparent #E5E7EB transparent;
 }
 
 .table-view .column-header, .table-view .filler {
@@ -185,7 +187,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: -text-secondary;
+    -fx-text-fill: #6B7280;
     -fx-font-weight: bold;
     -fx-font-size: 12px;
 }
@@ -206,7 +208,7 @@
     -fx-background-color: #E0F2FE; /* Màu xanh biển nhạt dịu mắt */
 }
 .table-row-cell:selected .text {
-    -fx-fill: -color-brand-navy;
+    -fx-fill: #1E3A8A;
     -fx-font-weight: bold;
 }
 
@@ -224,11 +226,11 @@
 
 /* Đường link chuyển đổi (Đăng nhập / Đăng ký) */
 .hyperlink {
-    -fx-text-fill: -text-secondary;
+    -fx-text-fill: #6B7280;
     -fx-underline: false;
     -fx-border-color: transparent;
 }
 .hyperlink:hover {
-    -fx-text-fill: -color-brand-blue;
+    -fx-text-fill: #2563EB;
     -fx-underline: true;
 }

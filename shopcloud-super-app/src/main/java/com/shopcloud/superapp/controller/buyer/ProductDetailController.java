@@ -17,7 +17,7 @@ import java.util.function.BiConsumer;
  * Controller cho Pop-up Modal xem chi tiết sản phẩm.
  * <p>
  * Trách nhiệm theo SRP: Quản lý hiển thị toàn bộ thuộc tính chi tiết sản phẩm (Ảnh, Tên, Giá, Đánh giá, Lượt bán, Mô tả)
- * và tương tác chọn số lượng để gửi lại callback thêm vào giỏ hàng.
+ * và tương tác chọn số lượng để kích hoạt sự kiện Thêm vào giỏ hàng hoặc Mua ngay.
  */
 public class ProductDetailController {
 
@@ -54,6 +54,9 @@ public class ProductDetailController {
     private Button btnAddToCart;
 
     @FXML
+    private Button btnBuyNow;
+
+    @FXML
     private Button btnClose;
 
     @FXML
@@ -61,16 +64,19 @@ public class ProductDetailController {
 
     private Product product;
     private BiConsumer<Product, Integer> onAddToCartCallback;
+    private BiConsumer<Product, Integer> onBuyNowCallback;
 
     /**
-     * Khởi tạo dữ liệu chi tiết sản phẩm và callback xử lý thêm giỏ hàng từ màn hình chính.
+     * Khởi tạo dữ liệu chi tiết sản phẩm và callback xử lý khi chọn Thêm vào giỏ hoặc Mua ngay.
      *
      * @param product sản phẩm được chọn
-     * @param onAddToCartCallback callback nhận (Product, int quantity) khi người dùng bấm thêm giỏ hàng
+     * @param onAddToCartCallback callback nhận (Product, int quantity) khi người dùng bấm Thêm giỏ
+     * @param onBuyNowCallback callback nhận (Product, int quantity) khi người dùng bấm Mua ngay
      */
-    public void setProduct(Product product, BiConsumer<Product, Integer> onAddToCartCallback) {
+    public void setProduct(Product product, BiConsumer<Product, Integer> onAddToCartCallback, BiConsumer<Product, Integer> onBuyNowCallback) {
         this.product = product;
         this.onAddToCartCallback = onAddToCartCallback;
+        this.onBuyNowCallback = onBuyNowCallback;
 
         if (product == null) {
             return;
@@ -86,7 +92,7 @@ public class ProductDetailController {
     }
 
     /**
-     * Nạp ảnh sản phẩm từ URL hoặc đường dẫn resource, tự động fallback về logo mặc định khi xảy ra sự cố.
+     * Nạp ảnh sản phẩm từ URL hoặc đường dẫn resource, tự động fallback về logo mặc định.
      */
     private void loadProductImage(String imageUrl) {
         try {
@@ -95,7 +101,6 @@ public class ProductDetailController {
             if (imageStream != null) {
                 productImageView.setImage(new Image(imageStream));
             } else {
-                // Thử nạp logo mặc định làm phương án dự phòng
                 InputStream defaultStream = getClass().getResourceAsStream(DEFAULT_IMAGE_PATH);
                 if (defaultStream != null) {
                     productImageView.setImage(new Image(defaultStream));
@@ -125,6 +130,15 @@ public class ProductDetailController {
         if (product != null && onAddToCartCallback != null) {
             int quantity = parseQuantity();
             onAddToCartCallback.accept(product, quantity);
+        }
+        closeStage();
+    }
+
+    @FXML
+    private void handleBuyNow(ActionEvent event) {
+        if (product != null && onBuyNowCallback != null) {
+            int quantity = parseQuantity();
+            onBuyNowCallback.accept(product, quantity);
         }
         closeStage();
     }

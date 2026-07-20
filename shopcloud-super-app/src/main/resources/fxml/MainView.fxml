@@ -5,11 +5,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="720.0" prefWidth="1200.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.MainController">
+
+    <!-- ====== THANH HEADER BAR TÙY CHỈNH (Custom Title Bar) ====== -->
+    <top>
+        <HBox fx:id="headerBar" alignment="CENTER_LEFT" prefHeight="40.0"
+              style="-fx-background-color: #0F172A; -fx-padding: 0 16 0 16;" spacing="10">
+            <children>
+                <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"
+                       text="☁ SHOP CLOUD SUPER APP — Workspace Portal" />
+                <!-- Region co giãn chiếm hết khoảng trống giữa tiêu đề và nhóm nút điều khiển -->
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER_RIGHT" spacing="8">
+                    <children>
+                        <!-- Nút Thu nhỏ xuống Taskbar -->
+                        <Button fx:id="btnMinimize" onAction="#handleMinimize"
+                                style="-fx-background-color: transparent; -fx-text-fill: #94A3B8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;"
+                                text="—" />
+                        <!-- Nút Phóng to / Khôi phục kích thước -->
+                        <Button fx:id="btnMaximize" onAction="#handleMaximizeRestore"
+                                style="-fx-background-color: transparent; -fx-text-fill: #94A3B8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;"
+                                text="☐" />
+                        <!-- Nút Đóng cửa sổ -->
+                        <Button fx:id="btnCloseWindow" onAction="#handleCloseWindow"
+                                style="-fx-background-color: transparent; -fx-text-fill: #F87171; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;"
+                                text="✕" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
 
     <left>
         <VBox prefHeight="720.0" prefWidth="272.0" spacing="20" styleClass="sidebar">

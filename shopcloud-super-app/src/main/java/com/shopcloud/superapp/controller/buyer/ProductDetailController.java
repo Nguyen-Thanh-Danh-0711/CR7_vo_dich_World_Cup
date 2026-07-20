@@ -79,7 +79,7 @@ public class ProductDetailController {
         nameLabel.setText(product.getName());
         priceLabel.setText(product.getFormattedPrice());
         ratingLabel.setText(product.getFormattedRating());
-        soldLabel.setText("🔥 Đã bán " + product.getFormattedSoldQuantity());
+        soldLabel.setText("Đã bán " + product.getFormattedSoldQuantity());
         descriptionLabel.setText(product.getDescription() != null ? product.getDescription() : "Chưa có thông tin mô tả.");
 
         loadProductImage(product.getImageUrl());

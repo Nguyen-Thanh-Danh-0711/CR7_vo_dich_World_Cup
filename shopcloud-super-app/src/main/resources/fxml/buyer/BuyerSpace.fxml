@@ -37,7 +37,7 @@
       <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-background-color: #FFFFFF; -fx-padding: 12 20 12 20; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12;">
          <children>
             <!-- Ô tìm kiếm từ khóa -->
-            <TextField fx:id="searchField" promptText="🔍 Tìm kiếm sản phẩm theo tên, mô tả..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="searchField" promptText="Tìm kiếm sản phẩm theo tên, mô tả..." styleClass="search-field" HBox.hgrow="ALWAYS" />
 
             <!-- ComboBox sắp xếp -->
             <ComboBox fx:id="sortComboBox" prefWidth="220.0" promptText="Sắp xếp theo..." style="-fx-background-color: #F3F4F6; -fx-background-radius: 20; -fx-border-radius: 20; -fx-padding: 4 10 4 10; -fx-font-weight: bold;" />

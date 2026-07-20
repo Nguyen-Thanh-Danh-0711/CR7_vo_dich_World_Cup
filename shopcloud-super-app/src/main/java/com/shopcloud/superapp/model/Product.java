@@ -107,9 +107,9 @@ public class Product {
     }
 
     /**
-     * Định dạng hiển thị đánh giá thang điểm 10 (Ví dụ: ⭐ 9.5/10).
+     * Định dạng hiển thị đánh giá thang điểm 10 (Ví dụ: 9.5/10).
      */
     public String getFormattedRating() {
-        return String.format(Locale.US, "⭐ %.1f/10", rating);
+        return String.format(Locale.US, "%.1f/10", rating);
     }
 }

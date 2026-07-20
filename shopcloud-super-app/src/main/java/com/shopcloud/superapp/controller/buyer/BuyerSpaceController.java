@@ -272,8 +272,8 @@ public class BuyerSpaceController implements Initializable {
      */
     private void addToCart(Product product, int quantity) {
         totalCartCount += quantity;
-        cartCountLabel.setText("🛒 Giỏ hàng: " + totalCartCount);
-        showToast("✅ Đã thêm " + quantity + " x \"" + product.getName() + "\" vào giỏ hàng thành công!");
+        cartCountLabel.setText("Giỏ hàng: " + totalCartCount);
+        showToast("Đã thêm " + quantity + " x \"" + product.getName() + "\" vào giỏ hàng thành công!");
     }
 
     /**

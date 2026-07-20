@@ -29,19 +29,19 @@
                </font></Label>
             </VBox>
 
-            <Button fx:id="btnBuyerSpace" maxWidth="Infinity" onAction="#loadBuyerSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-buyer" text="🛒   Không gian Người Mua">
+            <Button fx:id="btnBuyerSpace" maxWidth="Infinity" onAction="#loadBuyerSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-buyer" text="Không gian Người Mua">
                 <effect>
                     <DropShadow color="#2563EB1A" offsetY="4" radius="15" />
                 </effect>
             </Button>
 
-            <Button fx:id="btnSellerSpace" maxWidth="Infinity" onAction="#loadSellerSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-seller" text="🏪   Kênh Người Bán">
+            <Button fx:id="btnSellerSpace" maxWidth="Infinity" onAction="#loadSellerSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-seller" text="Kênh Người Bán">
                 <effect>
                     <DropShadow color="#0596691A" offsetY="4" radius="15" />
                 </effect>
             </Button>
 
-            <Button fx:id="btnAdminSpace" maxWidth="Infinity" onAction="#loadAdminSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-admin" text="⚙   Quản Trị Admin">
+            <Button fx:id="btnAdminSpace" maxWidth="Infinity" onAction="#loadAdminSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-admin" text="Quản Trị Admin">
                 <effect>
                     <DropShadow color="#1E3A8A33" offsetY="4" radius="15" />
                 </effect>

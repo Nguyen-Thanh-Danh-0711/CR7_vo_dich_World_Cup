@@ -2,50 +2,67 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" spacing="15.0"
-      style="-fx-background-color: #F9FAFB;"
-      xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.shopcloud.superapp.controller.BuyerSpaceController">
+<VBox prefHeight="650.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.BuyerSpaceController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0">
+      <!-- Header bar: Tiêu đề & Giỏ hàng badge -->
+      <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #FFFFFF; -fx-padding: 12 20 12 20; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12;">
          <children>
-            <TextField fx:id="searchField"
-                       promptText="Tìm kiếm sản phẩm, thương hiệu..."
-                       style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFFFFF; -fx-border-color: #E5E7EB; -fx-padding: 8 15 8 15;"
-                       HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnSearch"
-                    mnemonicParsing="false"
-                    onAction="#handleSearch"
-                    style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold; -fx-cursor: hand;"
-                    text="Tìm kiếm" />
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;" text="ShopCloud Marketplace" />
+                  <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" text="Khám phá hàng ngàn sản phẩm chính hãng với ưu đãi tốt nhất" />
+               </children>
+            </VBox>
+            <!-- Label hiển thị số lượng giỏ hàng -->
+            <Label fx:id="cartCountLabel" style="-fx-background-color: #EFF6FF; -fx-text-fill: #1D4ED8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 8 16 8 16; -fx-background-radius: 20; -fx-border-color: #BFDBFE; -fx-border-radius: 20;" text="Giỏ hàng: 0" />
+         </children>
+         <effect>
+            <DropShadow color="#0000000D" offsetY="2" radius="8" />
+         </effect>
+      </HBox>
+
+      <!-- Thanh điều khiển Tìm kiếm & Bộ lọc nâng cao (Search & Filter Bar) -->
+      <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-background-color: #FFFFFF; -fx-padding: 12 20 12 20; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12;">
+         <children>
+            <!-- Ô tìm kiếm từ khóa -->
+            <TextField fx:id="searchField" promptText="🔍 Tìm kiếm sản phẩm theo tên, mô tả..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+
+            <!-- ComboBox sắp xếp -->
+            <ComboBox fx:id="sortComboBox" prefWidth="220.0" promptText="Sắp xếp theo..." style="-fx-background-color: #F3F4F6; -fx-background-radius: 20; -fx-border-radius: 20; -fx-padding: 4 10 4 10; -fx-font-weight: bold;" />
+
+            <!-- Nút Tìm kiếm -->
+            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#handleSearch" styleClass="btn-primary" text="Tìm kiếm" />
+         </children>
+         <effect>
+            <DropShadow color="#00000008" offsetY="2" radius="6" />
+         </effect>
+      </HBox>
+
+      <!-- Thông báo nhẹ Notification/Toast khi thao tác (thêm giỏ hàng...) -->
+      <HBox fx:id="toastContainer" alignment="CENTER" managed="false" style="-fx-background-color: #D1FAE5; -fx-border-color: #10B981; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 15 8 15;" visible="false">
+         <children>
+            <Label fx:id="toastLabel" style="-fx-text-fill: #065F46; -fx-font-weight: bold; -fx-font-size: 13px;" text="Thông báo thao tác" />
          </children>
       </HBox>
 
-      <ScrollPane fx:id="productScrollPane"
-                  fitToWidth="true"
-                  hbarPolicy="NEVER"
-                  prefHeight="200.0"
-                  prefWidth="200.0"
-                  style="-fx-background-color: transparent; -fx-background: transparent;"
-                  VBox.vgrow="ALWAYS">
+      <!-- Vùng cuộn chứa danh sách sản phẩm Grid/Tile -->
+      <ScrollPane fx:id="productScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
          <content>
-            <TilePane fx:id="productGrid"
-                      hgap="20.0"
-                      prefHeight="200.0"
-                      prefWidth="200.0"
-                      vgap="20.0">
+            <TilePane fx:id="productGrid" hgap="20.0" prefColumns="3" tileAlignment="TOP_LEFT" vgap="20.0">
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </TilePane>
          </content>

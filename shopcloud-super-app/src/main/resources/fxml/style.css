@@ -339,3 +339,87 @@
 .scroll-bar:horizontal {
     -fx-pref-height: 8;
 }
+
+/* ==========================================================================
+   8. SUB-MENU KÊNH NGƯỜI BÁN (SELLER SUB-MENU)
+   ========================================================================== */
+
+/* Nút chính Kênh Người Bán khi sub-menu đang mở */
+.menu-button-seller:hover {
+    -fx-background-color: #15803D;
+}
+
+/* Nút con trong sub-menu Seller — indent nhẹ, kích thước nhỏ hơn */
+.menu-button-sub {
+    -fx-background-radius: 16;
+    -fx-padding: 7 16;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+/* ==========================================================================
+   9. BẢNG THAO TÁC SẢN PHẨM — NÚT TRONG CỘT ACTIONS (MY PRODUCTS VIEW)
+   ========================================================================== */
+
+/* Nút Xem chi tiết (Xanh dương) */
+.btn-detail {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 4 10;
+    -fx-cursor: hand;
+}
+
+.btn-detail:hover {
+    -fx-background-color: #1D4ED8;
+}
+
+/* Nút Sửa giá (Vàng cam) */
+.btn-edit-price {
+    -fx-background-color: #F59E0B;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 4 10;
+    -fx-cursor: hand;
+}
+
+.btn-edit-price:hover {
+    -fx-background-color: #D97706;
+}
+
+/* Nút Xóa (Đỏ) */
+.btn-delete {
+    -fx-background-color: #EF4444;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 4 10;
+    -fx-cursor: hand;
+}
+
+.btn-delete:hover {
+    -fx-background-color: #DC2626;
+}
+
+/* ==========================================================================
+   10. VÙNG TẢI ẢNH SẢN PHẨM (IMAGE UPLOAD AREA)
+   ========================================================================== */
+.upload-area {
+    -fx-background-color: #F9FAFB;
+    -fx-border-color: #D1D5DB;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-width: 1.5;
+    -fx-border-style: dashed;
+}
+
+.upload-area:hover {
+    -fx-border-color: #2563EB;
+    -fx-background-color: #EFF6FF;
+}

@@ -17,10 +17,14 @@ public class Product {
     private int soldQuantity; // Số lượng đã bán
     private String imageUrl;
     private String description;
+    private int stock; // Số lượng tồn kho (dùng trong Kênh Người Bán)
 
     public Product() {
     }
 
+    /**
+     * Constructor đầy đủ cho Không gian Người Mua (BuyerSpace) — không cần stock.
+     */
     public Product(String id, String name, double price, double rating, int soldQuantity, String imageUrl, String description) {
         this.id = id;
         this.name = name;
@@ -29,6 +33,15 @@ public class Product {
         this.soldQuantity = soldQuantity;
         this.imageUrl = imageUrl;
         this.description = description;
+        this.stock = 0;
+    }
+
+    /**
+     * Constructor mở rộng cho Kênh Người Bán (SellerSpace) — bao gồm stock tồn kho.
+     */
+    public Product(String id, String name, double price, double rating, int soldQuantity, String imageUrl, String description, int stock) {
+        this(id, name, price, rating, soldQuantity, imageUrl, description);
+        this.stock = stock;
     }
 
     public String getId() {
@@ -85,6 +98,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     /**

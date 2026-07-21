@@ -58,11 +58,23 @@
                 </effect>
             </Button>
 
-            <Button fx:id="btnSellerSpace" maxWidth="Infinity" onAction="#loadSellerSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-seller" text="Kênh Người Bán">
-                <effect>
-                    <DropShadow color="#0596691A" offsetY="4" radius="15" />
-                </effect>
-            </Button>
+            <!-- Kênh Người Bán — Nút chính + Sub-menu mở rộng -->
+            <VBox spacing="6">
+                <children>
+                    <Button fx:id="btnSellerSpace" maxWidth="Infinity" onAction="#handleToggleSellerMenu" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-seller" text="Kênh Người Bán">
+                        <effect>
+                            <DropShadow color="#0596691A" offsetY="4" radius="15" />
+                        </effect>
+                    </Button>
+                    <!-- Sub-menu ẩn mặc định — hiển thị khi bấm nút chính -->
+                    <VBox fx:id="sellerSubMenu" spacing="4" managed="false" visible="false" style="-fx-padding: 0 0 0 12;">
+                        <children>
+                            <Button fx:id="btnAddProduct" maxWidth="Infinity" onAction="#loadAddProductView" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="＋ Đăng bán sản phẩm" />
+                            <Button fx:id="btnMyProducts" maxWidth="Infinity" onAction="#loadMyProductsView" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="📦 Sản phẩm của tôi" />
+                        </children>
+                    </VBox>
+                </children>
+            </VBox>
 
             <Button fx:id="btnAdminSpace" maxWidth="Infinity" onAction="#loadAdminSpace" style="-fx-background-color: #1E3A8A; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-font-weight: bold;" styleClass="menu-button, menu-button-admin" text="Quản Trị Admin">
                 <effect>

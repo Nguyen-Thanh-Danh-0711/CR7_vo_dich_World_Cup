@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -28,7 +29,8 @@ import java.util.Set;
  * Trách nhiệm theo SRP:
  * 1. Ẩn/hiện menu và nạp FXML không gian tương ứng vào {@link #contentArea}
  *    theo phân quyền JWT (ROLE_BUYER / ROLE_SELLER / ROLE_ADMIN).
- * 2. Quản lý tương tác cửa sổ tùy chỉnh (Resize 8 hướng, Phóng to/Thu nhỏ, Ẩn/Đóng cửa sổ).
+ * 2. Quản lý sub-menu Kênh Người Bán (toggle Đăng bán / Sản phẩm của tôi).
+ * 3. Quản lý tương tác cửa sổ tùy chỉnh (Resize 8 hướng, Phóng to/Thu nhỏ, Ẩn/Đóng cửa sổ).
  * <p>
  * Không tự bắt lỗi hay hiển thị Alert — mọi ngoại lệ (IO, NPE, Runtime...) được
  * ném ra để {@link com.shopcloud.superapp.exception.GlobalExceptionHandler} xử lý tập trung.
@@ -99,6 +101,18 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnAdminSpace;
+
+    /** Sub-menu Kênh Người Bán — chứa 2 nút con: Đăng bán & Sản phẩm của tôi */
+    @FXML
+    private VBox sellerSubMenu;
+
+    /** Nút chuyển sang màn hình Đăng bán sản phẩm mới */
+    @FXML
+    private Button btnAddProduct;
+
+    /** Nút chuyển sang màn hình Sản phẩm của tôi */
+    @FXML
+    private Button btnMyProducts;
 
     @FXML
     private StackPane contentArea;
@@ -285,6 +299,10 @@ public class MainController implements Initializable {
         // Kênh Người bán: hiển thị nếu đã kích hoạt Shop (ROLE_SELLER) hoặc Admin có quyền giám sát
         boolean showSellerSpace = roles.contains(ROLE_SELLER) || roles.contains(ROLE_ADMIN);
         setNodeVisibility(btnSellerSpace, showSellerSpace);
+        // Sub-menu mặc định ẩn — chỉ hiện khi bấm nút chính "Kênh Người Bán"
+        if (sellerSubMenu != null) {
+            setNodeVisibility(sellerSubMenu, false);
+        }
 
         // Không gian Admin: tuyệt đối ẩn với mọi tài khoản thường — chỉ hiển thị cho ROLE_ADMIN nội bộ
         boolean showAdminSpace = roles.contains(ROLE_ADMIN);
@@ -301,21 +319,71 @@ public class MainController implements Initializable {
     }
 
     // ========================================================================================
+    // ĐIỀU HƯỚNG SUB-MENU KÊNH NGƯỜI BÁN (SELLER SUB-MENU NAVIGATION)
+    // ========================================================================================
+
+    /**
+     * Toggle ẩn/hiện sub-menu Kênh Người Bán khi bấm nút chính.
+     * Nếu đang ẩn → hiện sub-menu và tự động nạp "Đăng bán sản phẩm" làm mặc định.
+     * Nếu đang hiện → ẩn sub-menu.
+     */
+    @FXML
+    private void handleToggleSellerMenu() {
+        if (sellerSubMenu == null) {
+            return;
+        }
+
+        boolean currentlyVisible = sellerSubMenu.isVisible();
+
+        if (!currentlyVisible) {
+            // Mở sub-menu và nạp view mặc định (Đăng bán sản phẩm)
+            setNodeVisibility(sellerSubMenu, true);
+            try {
+                loadAddProductView();
+            } catch (IOException e) {
+                throw new RuntimeException("Không thể nạp giao diện Đăng bán sản phẩm!", e);
+            }
+        } else {
+            // Đóng sub-menu
+            setNodeVisibility(sellerSubMenu, false);
+        }
+    }
+
+    // ========================================================================================
     // NẠP FXML WORKSPACE (WORKSPACE LOADING)
     // ========================================================================================
 
     @FXML
     private void loadBuyerSpace() throws IOException {
+        // Đóng sub-menu Seller khi chuyển sang Buyer Space
+        if (sellerSubMenu != null) {
+            setNodeVisibility(sellerSubMenu, false);
+        }
         loadWorkspace("/fxml/buyer/BuyerSpace.fxml");
     }
 
+    /**
+     * Nạp giao diện Đăng bán sản phẩm mới vào vùng hiển thị trung tâm.
+     */
     @FXML
-    private void loadSellerSpace() throws IOException {
-        loadWorkspace("/fxml/seller/SellerSpace.fxml");
+    private void loadAddProductView() throws IOException {
+        loadWorkspace("/fxml/seller/AddProductView.fxml");
+    }
+
+    /**
+     * Nạp giao diện Sản phẩm của tôi vào vùng hiển thị trung tâm.
+     */
+    @FXML
+    private void loadMyProductsView() throws IOException {
+        loadWorkspace("/fxml/seller/MyProductsView.fxml");
     }
 
     @FXML
     private void loadAdminSpace() throws IOException {
+        // Đóng sub-menu Seller khi chuyển sang Admin Space
+        if (sellerSubMenu != null) {
+            setNodeVisibility(sellerSubMenu, false);
+        }
         loadWorkspace("/fxml/admin/AdminSpace.fxml");
     }
 
@@ -323,7 +391,7 @@ public class MainController implements Initializable {
      * Nạp FXML workspace bất kỳ và thay thế vào vùng hiển thị trung tâm.
      * <p>
      * CẬP NHẬT: Thay đổi kiểu dữ liệu nạp từ 'Pane' sang 'Parent' để tương thích toàn diện 
-     * với cả cấu trúc layout gốc kiểu Control phức tạp (ví dụ: SplitPane trong Kênh Người Bán).
+     * với cả cấu trúc layout gốc kiểu Control phức tạp (ví dụ: ScrollPane trong AddProductView).
      * Ném IOException nếu sai đường dẫn file — GlobalExceptionHandler sẽ tự động bắt lấy.
      */
     private void loadWorkspace(String fxmlPath) throws IOException {

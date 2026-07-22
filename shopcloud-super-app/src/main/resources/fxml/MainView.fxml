@@ -67,10 +67,10 @@
                         </effect>
                     </Button>
                     <!-- Sub-menu ẩn mặc định — hiển thị khi bấm nút chính -->
-                    <VBox fx:id="sellerSubMenu" spacing="4" managed="false" visible="false" style="-fx-padding: 0 0 0 12;">
+                    <VBox fx:id="sellerSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 12;" visible="false">
                         <children>
-                            <Button fx:id="btnAddProduct" maxWidth="Infinity" onAction="#loadAddProductView" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="＋ Đăng bán sản phẩm" />
-                            <Button fx:id="btnMyProducts" maxWidth="Infinity" onAction="#loadMyProductsView" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="📦 Sản phẩm của tôi" />
+                            <Button fx:id="btnAddProduct" maxWidth="Infinity" onAction="#loadAddProductView" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="Đăng bán sản phẩm" />
+                            <Button fx:id="btnMyProducts" maxWidth="Infinity" onAction="#loadMyProductsView" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="Sản phẩm của tôi" />
                         </children>
                     </VBox>
                 </children>

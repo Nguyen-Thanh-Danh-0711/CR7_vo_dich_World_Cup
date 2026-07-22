@@ -1,6 +1,5 @@
 package com.shopcloud.superapp.controller.seller;
 
-import com.shopcloud.superapp.controller.buyer.ProductDetailController;
 import com.shopcloud.superapp.model.Product;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
@@ -25,11 +24,9 @@ import java.util.ResourceBundle;
  * Controller cho màn hình Quản lý sản phẩm của tôi (MyProductsView).
  * <p>
  * Trách nhiệm theo SRP: Hiển thị danh sách sản phẩm của người bán trong TableView,
- * cung cấp thao tác Xem chi tiết, Sửa giá, và Xóa sản phẩm.
+ * cung cấp thao tác Xem chi tiết (mở SellerProductDetailModal), Sửa giá, và Xóa sản phẩm.
  * Dữ liệu được bind trực tiếp từ {@link SellerProductStore} — mọi thay đổi
  * từ AddProductController sẽ tự động phản ánh lên TableView.
- * <p>
- * Không tự bắt lỗi nghiệp vụ — ủy quyền cho GlobalExceptionHandler.
  */
 public class MyProductsController implements Initializable {
 
@@ -49,6 +46,9 @@ public class MyProductsController implements Initializable {
 
     @FXML
     private TableColumn<Product, String> colProductStock;
+
+    @FXML
+    private TableColumn<Product, String> colProductStatus;
 
     @FXML
     private TableColumn<Product, Void> colActions;
@@ -84,7 +84,6 @@ public class MyProductsController implements Initializable {
 
     /**
      * Ánh xạ các cột TableView với thuộc tính tương ứng của Product model.
-     * Sử dụng lambda thay cho PropertyValueFactory vì Product không phải JavaBean thuần.
      */
     private void configureTableColumns() {
         colProductId.setCellValueFactory(row ->
@@ -100,24 +99,27 @@ public class MyProductsController implements Initializable {
         // Hiển thị số lượng tồn kho
         colProductStock.setCellValueFactory(row ->
                 new SimpleStringProperty(String.valueOf(row.getValue().getStock())));
+
+        // Hiển thị trạng thái kinh doanh
+        if (colProductStatus != null) {
+            colProductStatus.setCellValueFactory(row ->
+                    new SimpleStringProperty(row.getValue().getStatusText()));
+        }
     }
 
     /**
      * Cấu hình cột Thao tác (Actions) — mỗi dòng hiển thị 3 nút: Xem chi tiết, Sửa giá, Xóa.
-     * Sử dụng CellFactory tùy chỉnh để render HBox chứa các Button.
      */
     private void configureActionsColumn() {
         colActions.setCellFactory(column -> new TableCell<>() {
-            // Tạo sẵn các nút một lần cho mỗi Cell — tối ưu hiệu năng
-            private final Button btnDetail = createActionButton("👁 Chi tiết", "#2563EB", "#FFFFFF");
-            private final Button btnEditPrice = createActionButton("✏ Sửa giá", "#F59E0B", "#FFFFFF");
-            private final Button btnDelete = createActionButton("🗑 Xóa", "#EF4444", "#FFFFFF");
+            private final Button btnDetail = createActionButton("Chi tiết", "#2563EB", "#FFFFFF");
+            private final Button btnEditPrice = createActionButton("Sửa giá", "#F59E0B", "#FFFFFF");
+            private final Button btnDelete = createActionButton("Xóa", "#EF4444", "#FFFFFF");
             private final HBox actionBox = new HBox(6, btnDetail, btnEditPrice, btnDelete);
 
             {
                 actionBox.setAlignment(Pos.CENTER);
 
-                // Gắn sự kiện cho từng nút — sử dụng getTableRow().getItem() để lấy Product tại dòng hiện tại
                 btnDetail.setOnAction(event -> {
                     Product product = getTableRow().getItem();
                     if (product != null) {
@@ -148,14 +150,6 @@ public class MyProductsController implements Initializable {
         });
     }
 
-    /**
-     * Tạo nút thao tác với style nhất quán theo Design System.
-     *
-     * @param text  Nội dung hiển thị trên nút
-     * @param bgColor Màu nền nút
-     * @param textColor Màu chữ nút
-     * @return Button đã được style
-     */
     private Button createActionButton(String text, String bgColor, String textColor) {
         Button btn = new Button(text);
         btn.setStyle(String.format(
@@ -167,32 +161,31 @@ public class MyProductsController implements Initializable {
     }
 
     // ========================================================================================
-    // THAO TÁC XEM CHI TIẾT SẢN PHẨM (VIEW DETAIL)
+    // THAO TÁC XEM CHI TIẾT SẢN PHẨM DÀNH CHO NGƯỜI BÁN (SELLER PRODUCT DETAIL MODAL)
     // ========================================================================================
 
     /**
-     * Mở Pop-up Modal hiển thị chi tiết sản phẩm — tái sử dụng ProductDetailView.fxml.
-     * Ẩn các nút "Thêm giỏ hàng" và "Mua ngay" vì đây là góc nhìn của Người bán.
+     * Mở Pop-up Modal hiển thị chi tiết sản phẩm chuyên biệt cho Người bán (SellerProductDetailModal.fxml).
+     * Loại bỏ các nút mua hàng của Người mua, hỗ trợ thao tác Chỉnh sửa và Ẩn/Tắt kinh doanh.
      *
      * @param product Sản phẩm cần xem chi tiết
      */
     private void handleViewDetail(Product product) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/buyer/ProductDetailView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/seller/SellerProductDetailModal.fxml"));
             Parent root = loader.load();
 
-            ProductDetailController controller = loader.getController();
-            // Truyền product với callback rỗng — Người bán chỉ xem, không mua
-            controller.setProduct(product, null, null);
+            SellerProductDetailController controller = loader.getController();
+            controller.setProduct(product, () -> productTable.refresh());
 
             Stage modalStage = new Stage();
-            modalStage.setTitle("Xem chi tiết — " + product.getName());
+            modalStage.setTitle("Chi tiết sản phẩm (Kênh Người Bán) — " + product.getName());
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setScene(new Scene(root));
             modalStage.setResizable(false);
             modalStage.showAndWait();
         } catch (Exception e) {
-            throw new RuntimeException("Không thể mở giao diện chi tiết sản phẩm: " + product.getName(), e);
+            throw new RuntimeException("Không thể mở giao diện chi tiết sản phẩm dành cho Người bán: " + product.getName(), e);
         }
     }
 

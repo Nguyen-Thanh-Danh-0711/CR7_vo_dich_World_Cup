@@ -30,11 +30,12 @@
                 <!-- Bảng danh sách sản phẩm -->
                 <TableView fx:id="productTable" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="colProductId" prefWidth="90" text="Mã SP" />
-                        <TableColumn fx:id="colProductName" prefWidth="200" text="Tên sản phẩm" />
-                        <TableColumn fx:id="colProductPrice" prefWidth="140" text="Đơn giá" />
-                        <TableColumn fx:id="colProductStock" prefWidth="100" text="Tồn kho" />
-                        <TableColumn fx:id="colActions" prefWidth="250" text="Thao tác" sortable="false" />
+                        <TableColumn fx:id="colProductId" prefWidth="80" text="Mã SP" />
+                        <TableColumn fx:id="colProductName" prefWidth="180" text="Tên sản phẩm" />
+                        <TableColumn fx:id="colProductPrice" prefWidth="120" text="Đơn giá" />
+                        <TableColumn fx:id="colProductStock" prefWidth="90" text="Tồn kho" />
+                        <TableColumn fx:id="colProductStatus" prefWidth="130" text="Trạng thái" />
+                        <TableColumn fx:id="colActions" prefWidth="230" text="Thao tác" sortable="false" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

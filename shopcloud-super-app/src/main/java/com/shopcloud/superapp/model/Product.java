@@ -1,6 +1,8 @@
 package com.shopcloud.superapp.model;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -18,6 +20,8 @@ public class Product {
     private String imageUrl;
     private String description;
     private int stock; // Số lượng tồn kho (dùng trong Kênh Người Bán)
+    private List<String> detailImagePaths = new ArrayList<>(); // Danh sách ảnh mô tả chi tiết
+    private boolean active = true; // Trạng thái kinh doanh (true: Đang kinh doanh, false: Ẩn/Tắt)
 
     public Product() {
     }
@@ -106,6 +110,38 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public List<String> getDetailImagePaths() {
+        if (detailImagePaths == null) {
+            detailImagePaths = new ArrayList<>();
+        }
+        return detailImagePaths;
+    }
+
+    public void setDetailImagePaths(List<String> detailImagePaths) {
+        this.detailImagePaths = detailImagePaths != null ? detailImagePaths : new ArrayList<>();
+    }
+
+    public void addDetailImagePath(String path) {
+        if (path != null && !path.trim().isEmpty()) {
+            if (this.detailImagePaths == null) {
+                this.detailImagePaths = new ArrayList<>();
+            }
+            this.detailImagePaths.add(path);
+        }
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getStatusText() {
+        return active ? "Đang kinh doanh" : "Tạm ẩn";
     }
 
     /**

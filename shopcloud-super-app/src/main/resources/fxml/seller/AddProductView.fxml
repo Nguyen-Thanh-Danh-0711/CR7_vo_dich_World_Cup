@@ -14,32 +14,27 @@
 
 <!-- Màn hình Đăng bán sản phẩm mới — tách riêng khỏi SellerSpace cũ.
      ScrollPane đảm bảo nút "Đăng bán" luôn hiển thị khi resize/thu nhỏ cửa sổ. -->
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
-            style="-fx-background-color: #F3F4F6; -fx-background: #F3F4F6;"
-            stylesheets="@../style.css"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.shopcloud.superapp.controller.seller.AddProductController">
+
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #F3F4F6; -fx-background: #F3F4F6;" stylesheets="@../style.css" vbarPolicy="AS_NEEDED" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.seller.AddProductController">
     <content>
-        <VBox alignment="TOP_CENTER" spacing="0" style="-fx-background-color: #F3F4F6;">
+        <VBox alignment="TOP_CENTER" fillWidth="true" spacing="0" style="-fx-background-color: #F3F4F6;" VBox.vgrow="ALWAYS">
             <padding><Insets bottom="30" left="30" right="30" top="30" /></padding>
             <children>
-                <!-- Card chứa Form đăng bán -->
-                <VBox maxWidth="650" alignment="TOP_LEFT" spacing="16"
-                      style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #E5E7EB; -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 30;">
+                <!-- Card chứa Form đăng bán — tự động dãn 100% diện tích workspace khi phóng to màn hình -->
+                <VBox alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" spacing="16" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #E5E7EB; -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 30;" VBox.vgrow="ALWAYS">
                     <effect><DropShadow color="#0000000D" offsetY="4" radius="12" /></effect>
                     <children>
                         <!-- Tiêu đề -->
-                        <Label text="Đăng bán sản phẩm mới" style="-fx-text-fill: #1E3A8A;">
+                        <Label style="-fx-text-fill: #1E3A8A;" text="Đăng bán sản phẩm mới">
                             <font><Font name="System Bold" size="22" /></font>
                         </Label>
-                        <Label text="Điền đầy đủ thông tin sản phẩm để đăng lên ShopCloud Marketplace" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <Label style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" text="Điền đầy đủ thông tin sản phẩm để đăng lên ShopCloud Marketplace" />
 
                         <!-- Tên sản phẩm -->
                         <VBox spacing="6">
                             <children>
-                                <Label text="Tên sản phẩm *" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" />
-                                <TextField fx:id="productNameField" promptText="Nhập tên sản phẩm (ví dụ: Áo đấu CR7 World Cup 2026)" maxWidth="1.7976931348623157E308" />
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Tên sản phẩm *" />
+                                <TextField fx:id="productNameField" maxWidth="1.7976931348623157E308" promptText="Nhập tên sản phẩm (ví dụ: Áo đấu CR7 World Cup 2026)" />
                             </children>
                         </VBox>
 
@@ -48,48 +43,45 @@
                             <children>
                                 <VBox spacing="6" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <Label text="Đơn giá (VNĐ) *" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" />
-                                        <TextField fx:id="productPriceField" promptText="Nhập giá tiền" maxWidth="1.7976931348623157E308" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Đơn giá (VNĐ) *" />
+                                        <TextField fx:id="productPriceField" maxWidth="1.7976931348623157E308" promptText="Nhập giá tiền" />
                                     </children>
                                 </VBox>
                                 <VBox spacing="6" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <Label text="Số lượng tồn kho *" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" />
-                                        <TextField fx:id="productStockField" promptText="Nhập số lượng" maxWidth="1.7976931348623157E308" />
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Số lượng tồn kho *" />
+                                        <TextField fx:id="productStockField" maxWidth="1.7976931348623157E308" promptText="Nhập số lượng" />
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
 
                         <!-- Mô tả chi tiết -->
-                        <VBox spacing="6">
+                        <VBox spacing="6" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label text="Mô tả chi tiết" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" />
-                                <TextArea fx:id="productDescriptionArea" promptText="Nhập mô tả chi tiết sản phẩm..." wrapText="true" prefRowCount="4" maxWidth="1.7976931348623157E308" />
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Mô tả chi tiết" />
+                                <TextArea fx:id="productDescriptionArea" maxWidth="1.7976931348623157E308" prefRowCount="4" promptText="Nhập mô tả chi tiết sản phẩm..." wrapText="true" VBox.vgrow="ALWAYS" />
                             </children>
                         </VBox>
 
-                        <!-- Vùng tải ảnh sản phẩm -->
+                        <!-- Vùng tải ảnh chính sản phẩm (Avatar) -->
                         <VBox spacing="10">
                             <children>
-                                <Label text="Ảnh sản phẩm" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" />
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Ảnh đại diện sản phẩm *" />
                                 <HBox alignment="CENTER_LEFT" spacing="20">
                                     <children>
                                         <!-- Khung xem trước ảnh 150x150 -->
-                                        <VBox fx:id="imagePreviewContainer" alignment="CENTER" prefWidth="150" prefHeight="150"
-                                              style="-fx-background-color: #F9FAFB; -fx-border-color: #D1D5DB; -fx-border-radius: 12; -fx-background-radius: 12; -fx-border-width: 1.5; -fx-border-style: dashed;">
+                                        <VBox fx:id="imagePreviewContainer" alignment="CENTER" prefHeight="150" prefWidth="150" style="-fx-background-color: #F9FAFB; -fx-border-color: #D1D5DB; -fx-border-radius: 12; -fx-background-radius: 12; -fx-border-width: 1.5; -fx-border-style: dashed;">
                                             <children>
                                                 <ImageView fx:id="imgPreview" fitHeight="130" fitWidth="130" preserveRatio="true" />
-                                                <Label fx:id="lblImagePlaceholder" text="Chưa có ảnh" style="-fx-text-fill: #9CA3AF; -fx-font-size: 12px;" />
+                                                <Label fx:id="lblImagePlaceholder" style="-fx-text-fill: #9CA3AF; -fx-font-size: 12px;" text="Chưa có ảnh" />
                                             </children>
                                         </VBox>
                                         <!-- Nút chọn ảnh & thông tin file -->
-                                        <VBox spacing="8" alignment="CENTER_LEFT">
+                                        <VBox alignment="CENTER_LEFT" spacing="8" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="btnUploadImage" text="📁 Chọn ảnh từ máy tính"
-                                                        onAction="#handleUploadImage"
-                                                        style="-fx-background-color: #EFF6FF; -fx-text-fill: #2563EB; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #BFDBFE; -fx-border-radius: 10; -fx-padding: 8 16 8 16; -fx-cursor: hand;" />
-                                                <Label fx:id="lblImagePath" text="Hỗ trợ: PNG, JPG, JPEG" style="-fx-text-fill: #9CA3AF; -fx-font-size: 11px;" wrapText="true" maxWidth="250" />
+                                                <Button fx:id="btnUploadImage" onAction="#handleUploadImage" style="-fx-background-color: #EFF6FF; -fx-text-fill: #2563EB; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #BFDBFE; -fx-border-radius: 10; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Chọn ảnh đại diện từ máy tính" />
+                                                <Label fx:id="lblImagePath" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #9CA3AF; -fx-font-size: 11px;" text="Hỗ trợ: PNG, JPG, JPEG, WEBP" wrapText="true" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -97,10 +89,35 @@
                             </children>
                         </VBox>
 
+                        <!-- Vùng tải nhiều ảnh chi tiết & minh họa -->
+                        <VBox spacing="10">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Bộ sưu tập ảnh chi tiết &amp; minh họa" />
+                                        <Label fx:id="lblGalleryCount" style="-fx-text-fill: #6B7280; -fx-font-size: 12px;" text="(0 ảnh đã chọn)" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="16">
+                                    <children>
+                                        <Button fx:id="btnUploadGallery" onAction="#handleUploadGallery" style="-fx-background-color: #EFF6FF; -fx-text-fill: #0D9488; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #99F6E4; -fx-border-radius: 10; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="+ Chọn 1 hoặc nhiều ảnh minh họa" />
+                                    </children>
+                                </HBox>
+                                <!-- Khung cuộn chứa danh sách ảnh xem trước ngang -->
+                                <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" prefHeight="130" style="-fx-background-color: #F9FAFB; -fx-background: #F9FAFB; -fx-border-color: #E5E7EB; -fx-border-radius: 10; -fx-background-radius: 10;" vbarPolicy="NEVER">
+                                    <content>
+                                        <HBox fx:id="galleryPreviewContainer" alignment="CENTER_LEFT" minHeight="110" spacing="12" style="-fx-padding: 10;">
+                                            <children>
+                                                <Label fx:id="lblGalleryPlaceholder" style="-fx-text-fill: #9CA3AF; -fx-font-size: 12px; -fx-font-style: italic;" text="Chưa có ảnh chi tiết nào được chọn." />
+                                            </children>
+                                        </HBox>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </VBox>
+
                         <!-- Nút Đăng bán — luôn hiển thị nhờ ScrollPane bọc ngoài -->
-                        <Button fx:id="btnPublish" text="🚀 Đăng bán sản phẩm" mnemonicParsing="false"
-                                onAction="#handlePublishProduct" maxWidth="1.7976931348623157E308"
-                                style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 10; -fx-padding: 12 30 12 30; -fx-cursor: hand;">
+                        <Button fx:id="btnPublish" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePublishProduct" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 10; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Đăng bán sản phẩm">
                             <effect><DropShadow color="#10B98140" offsetY="4" radius="10" /></effect>
                         </Button>
                     </children>

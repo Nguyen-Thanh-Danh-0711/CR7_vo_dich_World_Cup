@@ -95,7 +95,7 @@ public class SellerProductDetailController {
         lblProductPrice.setText(product.getFormattedPrice());
         lblStockQuantity.setText(product.getStock() + " sản phẩm");
         lblSoldQuantity.setText(product.getFormattedSoldQuantity() + " lượt");
-        lblRating.setText(product.getFormattedRating() + " ⭐");
+        lblRating.setText(product.getFormattedRating());
 
         String desc = product.getDescription();
         if (desc == null || desc.trim().isEmpty()) {
@@ -218,13 +218,13 @@ public class SellerProductDetailController {
             lblStatusBadge.setText("Đang kinh doanh");
             lblStatusBadge.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 8;");
 
-            btnToggleStatus.setText("👁️ Tắt kinh doanh");
+            btnToggleStatus.setText("Tắt kinh doanh");
             btnToggleStatus.setStyle("-fx-background-color: #6B7280; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-cursor: hand; -fx-font-size: 13px;");
         } else {
             lblStatusBadge.setText("Đã ẩn (Tắt kinh doanh)");
             lblStatusBadge.setStyle("-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 8;");
 
-            btnToggleStatus.setText("👁️ Bật kinh doanh lại");
+            btnToggleStatus.setText("Bật kinh doanh lại");
             btnToggleStatus.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-cursor: hand; -fx-font-size: 13px;");
         }
     }

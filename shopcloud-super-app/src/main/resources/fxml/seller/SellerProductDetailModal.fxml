@@ -25,9 +25,9 @@
                     </children>
                 </VBox>
                 <!-- Badge Mã sản phẩm -->
-                <Label fx:id="lblProductIdBadge" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 8;" text="SP000" />
+                <Label fx:id="lblProductIdBadge" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 20;" text="SP000" />
                 <!-- Badge Trạng thái Kinh doanh -->
-                <Label fx:id="lblStatusBadge" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 8;" text="Đang kinh doanh" />
+                <Label fx:id="lblStatusBadge" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 20;" text="Đang kinh doanh" />
             </children>
         </HBox>
 
@@ -89,7 +89,7 @@
                                         <HBox spacing="12">
                                             <children>
                                                 <!-- Thẻ Tồn kho -->
-                                                <VBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: #EFF6FF; -fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #BFDBFE; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
+                                                <VBox alignment="CENTER" spacing="4" style="-fx-background-color: #EFF6FF; -fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #BFDBFE; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
                                                     <children>
                                                         <Label style="-fx-text-fill: #1E40AF; -fx-font-size: 11px; -fx-font-weight: bold;" text="Số lượng tồn kho" />
                                                         <Label fx:id="lblStockQuantity" style="-fx-text-fill: #2563EB; -fx-font-weight: bold; -fx-font-size: 16px;" text="0 sản phẩm" />
@@ -97,7 +97,7 @@
                                                 </VBox>
 
                                                 <!-- Thẻ Lượt bán -->
-                                                <VBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: #FFFBEB; -fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #FDE68A; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
+                                                <VBox alignment="CENTER" spacing="4" style="-fx-background-color: #FFFBEB; -fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #FDE68A; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
                                                     <children>
                                                         <Label style="-fx-text-fill: #92400E; -fx-font-size: 11px; -fx-font-weight: bold;" text="Đã bán ra" />
                                                         <Label fx:id="lblSoldQuantity" style="-fx-text-fill: #D97706; -fx-font-weight: bold; -fx-font-size: 16px;" text="0 lượt" />
@@ -105,7 +105,7 @@
                                                 </VBox>
 
                                                 <!-- Thẻ Đánh giá -->
-                                                <VBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: #F3F4F6; -fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #E5E7EB; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
+                                                <VBox alignment="CENTER" spacing="4" style="-fx-background-color: #F3F4F6; -fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #E5E7EB; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
                                                     <children>
                                                         <Label style="-fx-text-fill: #374151; -fx-font-size: 11px; -fx-font-weight: bold;" text="Đánh giá trung bình" />
                                                         <Label fx:id="lblRating" style="-fx-text-fill: #4B5563; -fx-font-weight: bold; -fx-font-size: 16px;" text="0.0/10" />
@@ -138,17 +138,17 @@
         <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-background-color: #F9FAFB; -fx-background-radius: 0 0 15 15; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 0 0; -fx-padding: 16 24 16 24;">
             <children>
                 <!-- Nút Chỉnh sửa sản phẩm -->
-                <Button fx:id="btnEdit" onAction="#handleEditProduct" style="-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-cursor: hand; -fx-font-size: 13px;" text="Chỉnh sửa sản phẩm">
+                <Button fx:id="btnEdit" onAction="#handleEditProduct" style="-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20 10 20; -fx-cursor: hand; -fx-font-size: 13px;" text="Chỉnh sửa sản phẩm">
                     <effect><DropShadow color="#F59E0B40" offsetY="2" radius="6" /></effect>
                 </Button>
 
                 <!-- Nút Ẩn/Tắt kinh doanh -->
-                <Button fx:id="btnToggleStatus" onAction="#handleToggleStatus" style="-fx-background-color: #6B7280; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20 10 20; -fx-cursor: hand; -fx-font-size: 13px;" text="Ẩn/Tắt kinh doanh">
+                <Button fx:id="btnToggleStatus" onAction="#handleToggleStatus" style="-fx-background-color: #6B7280; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20 10 20; -fx-cursor: hand; -fx-font-size: 13px;" text="Ẩn/Tắt kinh doanh">
                     <effect><DropShadow color="#6B728040" offsetY="2" radius="6" /></effect>
                 </Button>
 
                 <!-- Nút Đóng -->
-                <Button fx:id="btnClose" onAction="#handleClose" style="-fx-background-color: #E5E7EB; -fx-text-fill: #374151; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 24 10 24; -fx-cursor: hand; -fx-font-size: 13px;" text="Đóng" />
+                <Button fx:id="btnClose" onAction="#handleClose" style="-fx-background-color: #E5E7EB; -fx-text-fill: #374151; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 24 10 24; -fx-cursor: hand; -fx-font-size: 13px;" text="Đóng" />
             </children>
         </HBox>
     </children>

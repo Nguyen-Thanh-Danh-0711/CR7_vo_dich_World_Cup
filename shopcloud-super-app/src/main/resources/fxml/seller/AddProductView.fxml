@@ -80,7 +80,7 @@
                                         <!-- Nút chọn ảnh & thông tin file -->
                                         <VBox alignment="CENTER_LEFT" spacing="8" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="btnUploadImage" onAction="#handleUploadImage" style="-fx-background-color: #EFF6FF; -fx-text-fill: #2563EB; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #BFDBFE; -fx-border-radius: 10; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Chọn ảnh đại diện từ máy tính" />
+                                                <Button fx:id="btnUploadImage" onAction="#handleUploadImage" style="-fx-background-color: #EFF6FF; -fx-text-fill: #2563EB; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #BFDBFE; -fx-border-radius: 20; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="Chọn ảnh đại diện từ máy tính" />
                                                 <Label fx:id="lblImagePath" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #9CA3AF; -fx-font-size: 11px;" text="Hỗ trợ: PNG, JPG, JPEG, WEBP" wrapText="true" />
                                             </children>
                                         </VBox>
@@ -100,7 +100,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" spacing="16">
                                     <children>
-                                        <Button fx:id="btnUploadGallery" onAction="#handleUploadGallery" style="-fx-background-color: #EFF6FF; -fx-text-fill: #0D9488; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #99F6E4; -fx-border-radius: 10; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="+ Chọn 1 hoặc nhiều ảnh minh họa" />
+                                        <Button fx:id="btnUploadGallery" onAction="#handleUploadGallery" style="-fx-background-color: #EFF6FF; -fx-text-fill: #0D9488; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #99F6E4; -fx-border-radius: 20; -fx-padding: 8 16 8 16; -fx-cursor: hand;" text="+ Chọn 1 hoặc nhiều ảnh minh họa" />
                                     </children>
                                 </HBox>
                                 <!-- Khung cuộn chứa danh sách ảnh xem trước ngang -->
@@ -117,7 +117,7 @@
                         </VBox>
 
                         <!-- Nút Đăng bán — luôn hiển thị nhờ ScrollPane bọc ngoài -->
-                        <Button fx:id="btnPublish" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePublishProduct" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 10; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Đăng bán sản phẩm">
+                        <Button fx:id="btnPublish" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePublishProduct" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 20; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Đăng bán sản phẩm">
                             <effect><DropShadow color="#10B98140" offsetY="4" radius="10" /></effect>
                         </Button>
                     </children>

@@ -381,7 +381,7 @@
 .btn-edit-price {
     -fx-background-color: #F59E0B;
     -fx-text-fill: white;
-    -fx-background-radius: 8;
+    -fx-background-radius: 20;
     -fx-font-weight: bold;
     -fx-font-size: 11px;
     -fx-padding: 4 10;

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -13,19 +12,17 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<BorderPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #F9FAFB;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.AdminSpaceController">
+<BorderPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #F9FAFB;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.AdminSpaceController">
    <top>
       <!-- Admin Header Banner -->
-      <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: #1F2937; -fx-padding: 0 25 0 25;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="35.0" style="-fx-background-color: #EE4D2D; -fx-padding: 0 25 0 25;" BorderPane.alignment="CENTER">
          <children>
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="⚙️ HỆ THỐNG QUẢN TRỊ ADMIN — SHOPCLOUD WORKSPACE" />
-            <Region HBox.hgrow="ALWAYS" />
-            <Label fx:id="adminUserLabel" style="-fx-text-fill: #9CA3AF; -fx-font-weight: bold;" text="Admin: admin_ops" />
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="HỆ THỐNG QUẢN TRỊ ADMIN SHOPCLOUD WORKSPACE" />
+            <Region prefHeight="22.0" prefWidth="264.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </top>
@@ -94,16 +91,16 @@
                      <children>
                         <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label style="-fx-text-fill: #EF4444; -fx-font-size: 12px; -fx-font-weight: bold;" text="🔥 CHIẾN DỊCH KHẨN CẤP" />
+                              <Label style="-fx-text-fill: #EF4444; -fx-font-size: 12px; -fx-font-weight: bold;" text="CHIẾN DỊCH KHẨN CẤP" />
                               <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #111827;" text="Kích Hoạt Flash Sale Toàn Hệ Thống" />
                               <Label style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" text="Gửi tín hiệu kích hoạt đồng loạt sự kiện flash sale xuống các dịch vụ backend thông qua API đóng gói và đồng bộ Redis." wrapText="true" />
                            </children>
                         </VBox>
-                        <Button fx:id="btnTriggerFlashSale" mnemonicParsing="false" onAction="#handleKichHoatFlashSale" style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 8; -fx-cursor: hand;" text="KÍCH HOẠT FLASH SALE">
+                        <Button fx:id="btnTriggerFlashSale" mnemonicParsing="false" onAction="#handleKichHoatFlashSale" style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 20; -fx-cursor: hand;" text="KÍCH HOẠT FLASH SALE">
                            <effect>
-                              <DropShadow radius="10.0">
+                              <DropShadow>
                                  <color>
-                                    <Color red="0.8627451062202454" green="0.14901961386203766" blue="0.14901961386203766" opacity="0.3" />
+                                    <Color red="0.9372549057006836" green="0.2666666805744171" blue="0.2666666805744171" opacity="0.30000001192092896" />
                                  </color>
                               </DropShadow>
                            </effect>
@@ -119,17 +116,17 @@
                      <tabs>
 
                         <!-- TAB A: QUẢN LÝ NGƯỜI DÙNG -->
-                        <Tab text="👥 Quản Lý Người Dùng">
+                        <Tab style="-fx-background-radius: 20px;" text="Quản Lý Người Dùng">
                            <content>
                               <VBox spacing="15.0" style="-fx-padding: 15 5 5 5;">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" spacing="12.0">
                                        <children>
                                           <Label style="-fx-font-weight: bold; -fx-text-fill: #374151;" text="Tìm kiếm người dùng:" />
-                                          <TextField fx:id="userSearchField" prefWidth="250.0" promptText="Tìm theo Username hoặc Email..." style="-fx-background-radius: 6; -fx-border-color: #D1D5DB; -fx-border-radius: 6;" />
+                                          <TextField fx:id="userSearchField" prefWidth="250.0" promptText="Tìm theo Username hoặc Email..." style="-fx-background-radius: 20; -fx-border-color: #D1D5DB; -fx-border-radius: 20;" />
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btnToggleBanUser" mnemonicParsing="false" onAction="#handleToggleBanUser" style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="🔒 Khóa / Mở Khóa Tài Khoản" />
-                                          <Button fx:id="btnSendUserWarning" mnemonicParsing="false" onAction="#handleSendUserWarning" style="-fx-background-color: #D97706; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="⚠️ Gửi Cảnh Báo" />
+                                          <Button fx:id="btnToggleBanUser" mnemonicParsing="false" onAction="#handleToggleBanUser" style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 20; -fx-cursor: hand;" text="Khóa / Mở Khóa Tài Khoản" />
+                                          <Button fx:id="btnSendUserWarning" mnemonicParsing="false" onAction="#handleSendUserWarning" style="-fx-background-color: #D97706; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 20; -fx-cursor: hand;" text="Gửi Cảnh Báo" />
                                        </children>
                                     </HBox>
 
@@ -151,17 +148,17 @@
                         </Tab>
 
                         <!-- TAB B: QUẢN LÝ SHOP -->
-                        <Tab text="🏪 Quản Lý Shop">
+                        <Tab style="-fx-background-radius: 20px;" text="Quản Lý Shop">
                            <content>
                               <VBox spacing="15.0" style="-fx-padding: 15 5 5 5;">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" spacing="12.0">
                                        <children>
                                           <Label style="-fx-font-weight: bold; -fx-text-fill: #374151;" text="Tìm kiếm Shop:" />
-                                          <TextField fx:id="shopSearchField" prefWidth="250.0" promptText="Tìm theo Mã Shop hoặc Tên Shop..." style="-fx-background-radius: 6; -fx-border-color: #D1D5DB; -fx-border-radius: 6;" />
+                                          <TextField fx:id="shopSearchField" prefWidth="250.0" promptText="Tìm theo Mã Shop hoặc Tên Shop..." style="-fx-background-radius: 20; -fx-border-color: #D1D5DB; -fx-border-radius: 20;" />
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btnToggleBanShop" mnemonicParsing="false" onAction="#handleToggleBanShop" style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="🔒 Khóa / Mở Khóa Shop" />
-                                          <Button fx:id="btnSendShopWarning" mnemonicParsing="false" onAction="#handleSendShopWarning" style="-fx-background-color: #D97706; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="⚠️ Gửi Cảnh Báo Shop" />
+                                          <Button fx:id="btnToggleBanShop" mnemonicParsing="false" onAction="#handleToggleBanShop" style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 20; -fx-cursor: hand;" text="Khóa / Mở Khóa Shop" />
+                                          <Button fx:id="btnSendShopWarning" mnemonicParsing="false" onAction="#handleSendShopWarning" style="-fx-background-color: #D97706; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 20; -fx-cursor: hand;" text="Gửi Cảnh Báo Shop" />
                                        </children>
                                     </HBox>
 
@@ -184,17 +181,17 @@
                         </Tab>
 
                         <!-- TAB C: QUẢN LÝ SẢN PHẨM THEO SHOP -->
-                        <Tab text="📦 Quản Lý Sản Phẩm Theo Shop">
+                        <Tab style="-fx-background-radius: 20px;" text="Quản Lý Sản Phẩm Theo Shop">
                            <content>
                               <VBox spacing="15.0" style="-fx-padding: 15 5 5 5;">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" spacing="12.0">
                                        <children>
                                           <Label style="-fx-font-weight: bold; -fx-text-fill: #374151;" text="Chọn Cửa Hàng / Shop:" />
-                                          <ComboBox fx:id="shopSelectComboBox" prefWidth="280.0" promptText="-- Chọn Shop để xem sản phẩm --" style="-fx-background-radius: 6; -fx-border-color: #D1D5DB; -fx-border-radius: 6;" />
+                                          <ComboBox fx:id="shopSelectComboBox" prefWidth="280.0" promptText="-- Chọn Shop để xem sản phẩm --" style="-fx-background-radius: 20; -fx-border-color: #D1D5DB; -fx-border-radius: 20;" />
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btnDeleteProductViolation" mnemonicParsing="false" onAction="#handleDeleteProductViolation" style="-fx-background-color: #991B1B; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="🗑️ Xóa Sản Phẩm Vi Phạm" />
-                                          <Button fx:id="btnSendProductWarning" mnemonicParsing="false" onAction="#handleSendProductWarning" style="-fx-background-color: #D97706; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="⚠️ Cảnh Báo Vi Phạm" />
+                                          <Button fx:id="btnDeleteProductViolation" mnemonicParsing="false" onAction="#handleDeleteProductViolation" style="-fx-background-color: #991B1B; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 20; -fx-cursor: hand;" text="Xóa Sản Phẩm Vi Phạm" />
+                                          <Button fx:id="btnSendProductWarning" mnemonicParsing="false" onAction="#handleSendProductWarning" style="-fx-background-color: #D97706; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 20; -fx-cursor: hand;" text="Cảnh Báo Vi Phạm" />
                                        </children>
                                     </HBox>
 
@@ -218,7 +215,7 @@
                         </Tab>
 
                         <!-- TAB D: TRUNG TÂM BÁO CÁO VI PHẠM (INTEGRATED REPORT VIEW) -->
-                        <Tab text="🚨 Trung Tâm Báo Cáo Vi Phạm">
+                        <Tab style="-fx-background-radius: 20px;" text="Trung Tâm Báo Cáo Vi Phạm">
                            <content>
                               <VBox fx:id="reportContainer" spacing="10.0" style="-fx-padding: 10 0 0 0;" VBox.vgrow="ALWAYS" />
                            </content>

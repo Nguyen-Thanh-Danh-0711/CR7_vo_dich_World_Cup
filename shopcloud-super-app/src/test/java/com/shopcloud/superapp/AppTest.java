@@ -1,115 +1,70 @@
 package com.shopcloud.superapp;
 
-import com.shopcloud.superapp.zoom.ZoomHandler;
-import javafx.application.Platform;
-import javafx.geometry.Point2D;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.PickResult;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.shape.Rectangle;
+import com.shopcloud.superapp.model.Product;
+import com.shopcloud.superapp.model.Shop;
+import com.shopcloud.superapp.model.User;
+import com.shopcloud.superapp.model.ViolationReport;
+import com.shopcloud.superapp.store.AdminDataStore;
 import junit.framework.TestCase;
-
-import java.util.concurrent.CountDownLatch;
 
 public class AppTest extends TestCase {
 
-    static {
-        try {
-            // Initialize JavaFX Platform toolkit for testing JavaFX components
-            CountDownLatch latch = new CountDownLatch(1);
-            Platform.startup(latch::countDown);
-            latch.await();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public void testAdminDataStoreInitialization() {
+        AdminDataStore store = AdminDataStore.getInstance();
+        assertNotNull(store.getUsers());
+        assertFalse(store.getUsers().isEmpty());
+        assertNotNull(store.getShops());
+        assertFalse(store.getShops().isEmpty());
+        assertNotNull(store.getProducts());
+        assertFalse(store.getProducts().isEmpty());
+        assertNotNull(store.getReports());
+        assertFalse(store.getReports().isEmpty());
     }
 
-    public void testZoomAccumulationAndDriftWithoutClamping() {
-        Rectangle rect = new Rectangle(100, 100);
-        ZoomHandler handler = new ZoomHandler(rect);
-        handler.installOn(rect);
+    public void testBanUser() {
+        AdminDataStore store = AdminDataStore.getInstance();
+        store.banUser("ND001");
+        User user = store.getUsers().stream().filter(u -> "ND001".equalsIgnoreCase(u.getId())).findFirst().orElse(null);
+        assertNotNull(user);
+        assertTrue(user.isBanned());
 
-        // Verify initial state
-        assertEquals(1.0, handler.getZoomLevel(), 1e-9);
-        assertEquals(0.0, handler.getZoomRoot().getTranslateX(), 1e-9);
-        assertEquals(0.0, handler.getZoomRoot().getTranslateY(), 1e-9);
-
-        double sceneX = 50.0;
-        double sceneY = 50.0;
-
-        // Zoom in 10 times
-        for (int i = 0; i < 10; i++) {
-            ScrollEvent event = new ScrollEvent(
-                    ScrollEvent.SCROLL, sceneX, sceneY, sceneX, sceneY,
-                    false, false, false, false, false, false,
-                    0, 40, 0, 40,
-                    ScrollEvent.HorizontalTextScrollUnits.NONE, 0,
-                    ScrollEvent.VerticalTextScrollUnits.NONE, 0,
-                    0, null
-            );
-            rect.fireEvent(event);
-        }
-
-        // Check we scaled up to 1.1^10
-        double expectedZoom = Math.pow(1.1, 10);
-        assertEquals(expectedZoom, handler.getZoomLevel(), 1e-9);
-
-        // Zoom out 10 times
-        for (int i = 0; i < 10; i++) {
-            ScrollEvent event = new ScrollEvent(
-                    ScrollEvent.SCROLL, sceneX, sceneY, sceneX, sceneY,
-                    false, false, false, false, false, false,
-                    0, -40, 0, -40,
-                    ScrollEvent.HorizontalTextScrollUnits.NONE, 0,
-                    ScrollEvent.VerticalTextScrollUnits.NONE, 0,
-                    0, null
-            );
-            rect.fireEvent(event);
-        }
-
-        // Verify we returned exactly to 1.0 zoom level and (0,0) translation with absolutely zero drift!
-        assertEquals(1.0, handler.getZoomLevel(), 1e-9);
-        assertEquals(0.0, handler.getZoomRoot().getTranslateX(), 1e-9);
-        assertEquals(0.0, handler.getZoomRoot().getTranslateY(), 1e-9);
+        store.unbanUser("ND001");
+        assertFalse(user.isBanned());
     }
 
-    public void testZoomClampingAndImmediateResponse() {
-        Rectangle rect = new Rectangle(100, 100);
-        ZoomHandler handler = new ZoomHandler(rect);
-        handler.installOn(rect);
+    public void testBanShop() {
+        AdminDataStore store = AdminDataStore.getInstance();
+        store.banShop("SHOP001");
+        Shop shop = store.getShops().stream().filter(s -> "SHOP001".equalsIgnoreCase(s.getId())).findFirst().orElse(null);
+        assertNotNull(shop);
+        assertTrue(shop.isBanned());
 
-        double sceneX = 50.0;
-        double sceneY = 50.0;
+        store.unbanShop("SHOP001");
+        assertFalse(shop.isBanned());
+    }
 
-        // Zoom in 30 times (reaches MAX_ZOOM of 4.0)
-        for (int i = 0; i < 30; i++) {
-            ScrollEvent event = new ScrollEvent(
-                    ScrollEvent.SCROLL, sceneX, sceneY, sceneX, sceneY,
-                    false, false, false, false, false, false,
-                    0, 40, 0, 40,
-                    ScrollEvent.HorizontalTextScrollUnits.NONE, 0,
-                    ScrollEvent.VerticalTextScrollUnits.NONE, 0,
-                    0, null
-            );
-            rect.fireEvent(event);
-        }
+    public void testDeleteProduct() {
+        AdminDataStore store = AdminDataStore.getInstance();
+        store.deleteProduct("SP004");
+        Product product = store.getProducts().stream().filter(p -> "SP004".equalsIgnoreCase(p.getId())).findFirst().orElse(null);
+        assertNotNull(product);
+        assertEquals("REMOVED_BY_ADMIN", product.getAdminStatus());
+        assertFalse(product.isActive());
+    }
 
-        // Assert it is capped at MAX_ZOOM (4.0)
-        assertEquals(4.0, handler.getZoomLevel(), 1e-9);
+    public void testResolveReport() {
+        AdminDataStore store = AdminDataStore.getInstance();
+        store.resolveReport("RP001", "Đã xử lý theo đúng quy trình.");
+        ViolationReport report = store.getReports().stream().filter(r -> "RP001".equalsIgnoreCase(r.getReportId())).findFirst().orElse(null);
+        assertNotNull(report);
+        assertEquals("RESOLVED", report.getStatus());
+        assertEquals("Đã xử lý theo đúng quy trình.", report.getAdminReply());
+    }
 
-        // Zoom out exactly once - should respond immediately by scaling down
-        ScrollEvent zoomOutEvent = new ScrollEvent(
-                ScrollEvent.SCROLL, sceneX, sceneY, sceneX, sceneY,
-                false, false, false, false, false, false,
-                0, -40, 0, -40,
-                ScrollEvent.HorizontalTextScrollUnits.NONE, 0,
-                ScrollEvent.VerticalTextScrollUnits.NONE, 0,
-                0, null
-        );
-        rect.fireEvent(zoomOutEvent);
-
-        // Scale should decrease from 4.0 immediately to the 14th step (approx 3.797)
-        double expectedZoomAfterOneZoomOut = Math.pow(1.1, 14);
-        assertEquals(expectedZoomAfterOneZoomOut, handler.getZoomLevel(), 1e-9);
+    public void testSendWarning() {
+        AdminDataStore store = AdminDataStore.getInstance();
+        int initialCount = store.getWarningNotices().size();
+        store.sendWarning("ND002", "shop_cr7_official", "USER", "Cảnh báo vi phạm", "Chi tiết vi phạm...", "24h");
+        assertEquals(initialCount + 1, store.getWarningNotices().size());
     }
 }

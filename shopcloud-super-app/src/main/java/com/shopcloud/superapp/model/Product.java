@@ -22,6 +22,9 @@ public class Product {
     private int stock; // Số lượng tồn kho (dùng trong Kênh Người Bán)
     private List<String> detailImagePaths = new ArrayList<>(); // Danh sách ảnh mô tả chi tiết
     private boolean active = true; // Trạng thái kinh doanh (true: Đang kinh doanh, false: Ẩn/Tắt)
+    private String shopId = "SHOP001";
+    private String shopName = "CR7 Official Shop";
+    private String adminStatus = "APPROVED"; // "APPROVED", "REMOVED_BY_ADMIN", "PENDING"
 
     public Product() {
     }
@@ -46,6 +49,15 @@ public class Product {
     public Product(String id, String name, double price, double rating, int soldQuantity, String imageUrl, String description, int stock) {
         this(id, name, price, rating, soldQuantity, imageUrl, description);
         this.stock = stock;
+    }
+
+    /**
+     * Constructor đầy đủ cho Admin Space — hỗ trợ shopId và shopName.
+     */
+    public Product(String id, String name, double price, double rating, int soldQuantity, String imageUrl, String description, int stock, String shopId, String shopName) {
+        this(id, name, price, rating, soldQuantity, imageUrl, description, stock);
+        this.shopId = shopId;
+        this.shopName = shopName;
     }
 
     public String getId() {
@@ -141,7 +153,43 @@ public class Product {
     }
 
     public String getStatusText() {
+        if ("REMOVED_BY_ADMIN".equalsIgnoreCase(adminStatus)) {
+            return "Đã xóa bởi Admin";
+        }
         return active ? "Đang kinh doanh" : "Tạm ẩn";
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getAdminStatus() {
+        return adminStatus;
+    }
+
+    public void setAdminStatus(String adminStatus) {
+        this.adminStatus = adminStatus;
+    }
+
+    public String getAdminStatusText() {
+        if ("REMOVED_BY_ADMIN".equalsIgnoreCase(adminStatus)) {
+            return "Bị xóa vi phạm";
+        } else if ("PENDING".equalsIgnoreCase(adminStatus)) {
+            return "Chờ duyệt";
+        }
+        return "Đã duyệt";
     }
 
     /**

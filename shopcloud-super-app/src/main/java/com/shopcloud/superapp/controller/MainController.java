@@ -122,16 +122,18 @@ public class MainController implements Initializable {
         // 1. Lấy danh sách roles từ session toàn cục sau đăng nhập (mock JWT)
         Set<String> roles = App.UserSession.getRoles();
         
-        // 2. Phân quyền hiển thị các nút điều hướng trên thanh Side Menu
+        // 2. Phân quyền hiển thị các nút điều hướng trên thanh Side Menu theo nguyên tắc RBAC
         applyRoleBasedMenuVisibility(roles);
 
-        // 3. Tự động nạp "Không gian Người Mua" làm màn hình mặc định ban đầu
+        // 3. Tự động nạp màn hình khởi đầu phù hợp theo vai trò người dùng (Admin Space cho Admin)
         try {
-            loadBuyerSpace();
+            if (roles.contains(ROLE_ADMIN)) {
+                loadAdminSpace();
+            } else {
+                loadBuyerSpace();
+            }
         } catch (IOException e) {
-            // Chuyển đổi thành RuntimeException để tự động "bắn" lỗi lên bệ đỡ lỗi toàn cục
-            // (GlobalExceptionHandler) xử lý tập trung, giữ cho code initialize() luôn sạch.
-            throw new RuntimeException("Không thể tự động nạp giao diện Không gian Người Mua mặc định!", e);
+            throw new RuntimeException("Không thể tự động nạp giao diện mặc định cho vai trò!", e);
         }
 
         // 4. Đăng ký tính năng Tương tác Cửa sổ tùy chỉnh (Resize 8 hướng + Kéo Header di chuyển)
@@ -290,23 +292,33 @@ public class MainController implements Initializable {
     // ========================================================================================
 
     /**
-     * Phân quyền hiển thị menu theo mô hình phân tầng chức năng ShopCloud.
+     * Phân quyền hiển thị menu theo mô hình phân tầng chức năng Role-Based Access Control (RBAC).
      */
     private void applyRoleBasedMenuVisibility(Set<String> roles) {
-        // Không gian Người mua: luôn luôn hiển thị với mọi tài khoản đăng nhập
-        setNodeVisibility(btnBuyerSpace, true);
+        boolean isAdmin = roles.contains(ROLE_ADMIN);
 
-        // Kênh Người bán: hiển thị nếu đã kích hoạt Shop (ROLE_SELLER) hoặc Admin có quyền giám sát
-        boolean showSellerSpace = roles.contains(ROLE_SELLER) || roles.contains(ROLE_ADMIN);
-        setNodeVisibility(btnSellerSpace, showSellerSpace);
-        // Sub-menu mặc định ẩn — chỉ hiện khi bấm nút chính "Kênh Người Bán"
-        if (sellerSubMenu != null) {
-            setNodeVisibility(sellerSubMenu, false);
+        if (isAdmin) {
+            // Khi người dùng có vai trò ADMIN:
+            // LOẠI BỎ hoàn toàn 2 nút "Không gian Người Mua" và "Kênh Người Bán" khỏi Sidebar
+            setNodeVisibility(btnBuyerSpace, false);
+            setNodeVisibility(btnSellerSpace, false);
+            if (sellerSubMenu != null) {
+                setNodeVisibility(sellerSubMenu, false);
+            }
+            // CHỈ hiển thị duy nhất chức năng Quản Trị Admin
+            setNodeVisibility(btnAdminSpace, true);
+        } else {
+            // Đối với người dùng thông thường (Buyer / Seller)
+            setNodeVisibility(btnBuyerSpace, true);
+
+            boolean showSellerSpace = roles.contains(ROLE_SELLER);
+            setNodeVisibility(btnSellerSpace, showSellerSpace);
+            if (sellerSubMenu != null) {
+                setNodeVisibility(sellerSubMenu, false);
+            }
+
+            setNodeVisibility(btnAdminSpace, false);
         }
-
-        // Không gian Admin: tuyệt đối ẩn với mọi tài khoản thường — chỉ hiển thị cho ROLE_ADMIN nội bộ
-        boolean showAdminSpace = roles.contains(ROLE_ADMIN);
-        setNodeVisibility(btnAdminSpace, showAdminSpace);
     }
 
     /**

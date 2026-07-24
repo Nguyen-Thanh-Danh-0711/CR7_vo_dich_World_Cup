@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="580.0" prefWidth="650.0" spacing="0.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-radius: 16;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.ProductDetailController">
+<!-- Modal Chi tiết Sản phẩm (Người Mua) — UNDECORATED với Header Workspace Portal.
+     Bao gồm: Thông tin SP, Đánh giá từ người mua, Form gửi đánh giá, Nút tố cáo. -->
+
+<VBox prefHeight="700.0" prefWidth="700.0" spacing="0.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.ProductDetailController">
    <children>
-      <!-- Header tiêu đề popup modal -->
-      <HBox alignment="CENTER_LEFT" style="-fx-background-color: #1E3A8A; -fx-background-radius: 0 0 0 0; -fx-padding: 16 24 16 24;">
+      <!-- Header Workspace Portal — chuẩn 3 nút điều khiển -->
+      <HBox fx:id="headerBar" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10" style="-fx-background-color: #1E3A8A; -fx-padding: 0 16 0 16;">
          <children>
-            <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Chi tiết sản phẩm" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+            <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" text="☁ SHOP CLOUD — Chi tiết sản phẩm" />
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" spacing="8">
                <children>
-                  <Button fx:id="btnCloseHeader" mnemonicParsing="false" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;" text="✕" />
+                  <Button fx:id="btnMinimizeHeader" onAction="#handleMinimize" style="-fx-background-color: transparent; -fx-text-fill: #94A3B8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="—" />
+                  <Button fx:id="btnCloseHeader" mnemonicParsing="false" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: #F87171; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="✕" />
                </children>
             </HBox>
          </children>
       </HBox>
 
-      <!-- Vùng nội dung chính -->
+      <!-- Vùng nội dung chính — cuộn dọc -->
       <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
          <content>
             <VBox spacing="20.0" style="-fx-padding: 24;">
                <children>
+                  <!-- Khối thông tin sản phẩm chính -->
                   <HBox alignment="TOP_LEFT" spacing="24.0">
                      <children>
                         <!-- Ảnh lớn của sản phẩm -->
@@ -37,13 +47,11 @@
                            </children>
                         </VBox>
 
-                        <!-- Thông tin sản phẩm chính bên phải ảnh -->
+                        <!-- Thông tin sản phẩm bên phải ảnh -->
                         <VBox spacing="12.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <!-- Tên sản phẩm -->
                               <Label fx:id="nameLabel" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #111827;" text="Tên sản phẩm mẫu" wrapText="true" />
 
-                              <!-- Thông số Đánh giá (Thang 10) & Số lượng đã bán -->
                               <HBox alignment="CENTER_LEFT" spacing="12.0">
                                  <children>
                                     <Label fx:id="ratingLabel" style="-fx-background-color: #FEF3C7; -fx-text-fill: #D97706; -fx-font-weight: bold; -fx-padding: 4 10 4 10; -fx-background-radius: 12; -fx-font-size: 13px;" text="9.8/10" />
@@ -51,7 +59,6 @@
                                  </children>
                               </HBox>
 
-                              <!-- Giá niêm yết -->
                               <Label fx:id="priceLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #EF4444;" text="890.000đ" />
 
                               <!-- Bộ chọn số lượng -->
@@ -75,14 +82,49 @@
                         <Label fx:id="descriptionLabel" style="-fx-font-size: 13px; -fx-text-fill: #4B5563; -fx-line-spacing: 4;" text="Mô tả sản phẩm sẽ hiển thị tại đây..." wrapText="true" />
                      </children>
                   </VBox>
+
+                  <Separator />
+
+                  <!-- ĐÁNH GIÁ TỪ NGƯỜI MUA (PRODUCT REVIEWS) -->
+                  <VBox spacing="12">
+                     <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #1E3A8A;" text="Đánh giá từ người mua" />
+                        <!-- Danh sách đánh giá — render động bằng ProductDetailController -->
+                        <VBox fx:id="reviewListContainer" spacing="10">
+                           <children>
+                              <Label style="-fx-text-fill: #9CA3AF; -fx-font-size: 13px; -fx-font-style: italic;" text="Chưa có đánh giá nào cho sản phẩm này." />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+                  <Separator />
+
+                  <!-- FORM GỬI ĐÁNH GIÁ MỚI -->
+                  <VBox spacing="10" style="-fx-background-color: #EFF6FF; -fx-padding: 16; -fx-background-radius: 12; -fx-border-color: #BFDBFE; -fx-border-radius: 12;">
+                     <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1E3A8A;" text="Viết đánh giá của bạn" />
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Điểm đánh giá (1-10):" />
+                              <ComboBox fx:id="scoreComboBox" prefWidth="80" style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-border-radius: 6; -fx-background-radius: 6;" />
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="reviewCommentArea" maxWidth="Infinity" prefRowCount="3" promptText="Nhập nhận xét của bạn về sản phẩm này..." wrapText="true" />
+                        <Button onAction="#handleSubmitReview" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 14; -fx-padding: 8 20 8 20; -fx-cursor: hand;" text="Gửi đánh giá" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </content>
       </ScrollPane>
 
       <!-- Footer chứa các nút thao tác chính -->
-      <HBox alignment="CENTER_RIGHT" spacing="12.0" style="-fx-background-color: #F9FAFB; -fx-padding: 16 24 16 24; -fx-border-color: #E5E7EB transparent transparent transparent; -fx-background-radius: 0 0 16 16;">
+      <HBox alignment="CENTER" spacing="12.0" style="-fx-background-color: #F9FAFB; -fx-padding: 16 24 16 24; -fx-border-color: #E5E7EB transparent transparent transparent;">
          <children>
+            <!-- Nút Tố cáo sản phẩm -->
+            <Button fx:id="btnReport" mnemonicParsing="false" onAction="#handleReportProduct" style="-fx-background-color: #FEE2E2; -fx-text-fill: #DC2626; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20 10 20; -fx-cursor: hand; -fx-border-color: #FECACA; -fx-border-radius: 20;" text="Tố cáo sản phẩm" />
+            <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="btnClose" mnemonicParsing="false" onAction="#handleClose" style="-fx-background-color: #E5E7EB; -fx-text-fill: #374151; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 24 10 24; -fx-cursor: hand;" text="Đóng" />
             <Button fx:id="btnAddToCart" mnemonicParsing="false" onAction="#handleAddToCart" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 24 10 24; -fx-cursor: hand;" text="Thêm vào giỏ hàng">
                <effect>

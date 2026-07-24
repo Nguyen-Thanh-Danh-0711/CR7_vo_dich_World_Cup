@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Modal Điền thông tin giao hàng (Checkout Modal) — UNDECORATED với Header Workspace Portal. -->
+
+<VBox prefHeight="520.0" prefWidth="550.0" spacing="0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E5E7EB; -fx-border-width: 1; -fx-border-radius: 0;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.CheckoutController">
+    <children>
+        <!-- Header Workspace Portal -->
+        <HBox fx:id="headerBar" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10" style="-fx-background-color: #1E3A8A; -fx-padding: 0 16 0 16;">
+            <children>
+                <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" text="☁ SHOP CLOUD — Xác nhận đặt hàng" />
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER_RIGHT" spacing="8">
+                    <children>
+                        <Button onAction="#handleMinimize" style="-fx-background-color: transparent; -fx-text-fill: #94A3B8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="—" />
+                        <Button onAction="#handleCloseWindow" style="-fx-background-color: transparent; -fx-text-fill: #F87171; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="✕" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+
+        <!-- Nội dung chính — cuộn dọc -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox spacing="16" style="-fx-padding: 24;">
+                    <children>
+                        <!-- Tiêu đề form -->
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 18px; -fx-text-fill: #1E3A8A;" text="Thông tin giao hàng" />
+                        <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px;" text="Vui lòng điền đầy đủ thông tin bên dưới để hoàn tất đơn hàng." />
+
+                        <!-- Số điện thoại -->
+                        <VBox spacing="6">
+                            <children>
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Số điện thoại nhận hàng *" />
+                                <TextField fx:id="phoneField" maxWidth="Infinity" promptText="Nhập số điện thoại (VD: 0912345678)" />
+                            </children>
+                        </VBox>
+
+                        <!-- Địa chỉ nhận hàng -->
+                        <VBox spacing="6">
+                            <children>
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Địa chỉ nhận hàng *" />
+                                <TextArea fx:id="addressArea" maxWidth="Infinity" prefRowCount="3" promptText="Nhập địa chỉ nhận hàng chi tiết (Số nhà, đường, phường, quận, thành phố...)" wrapText="true" />
+                            </children>
+                        </VBox>
+
+                        <Separator style="-fx-padding: 8 0 8 0;" />
+
+                        <!-- Thông tin đơn hàng -->
+                        <VBox spacing="8" style="-fx-background-color: #F9FAFB; -fx-padding: 16; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12;">
+                            <children>
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1E3A8A;" text="Tóm tắt đơn hàng" />
+                                <VBox fx:id="orderSummaryContainer" spacing="4">
+                                    <children>
+                                        <!-- Danh sách sản phẩm đã chọn — render động -->
+                                        <Label style="-fx-text-fill: #9CA3AF; -fx-font-size: 12px;" text="Đang tải..." />
+                                    </children>
+                                </VBox>
+                                <Separator />
+                                <HBox alignment="CENTER_LEFT" spacing="8">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #374151;" text="Tổng thanh toán:" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="lblOrderTotal" style="-fx-text-fill: #EF4444; -fx-font-weight: bold; -fx-font-size: 20px;" text="0đ" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- Footer: Nút xác nhận + Hủy -->
+        <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-background-color: #F9FAFB; -fx-padding: 16 24 16 24; -fx-border-color: #E5E7EB transparent transparent transparent;">
+            <children>
+                <Button onAction="#handleCancel" style="-fx-background-color: #E5E7EB; -fx-text-fill: #374151; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 24 10 24; -fx-cursor: hand;" text="Hủy" />
+                <Button fx:id="btnConfirmOrder" mnemonicParsing="false" onAction="#handleConfirmOrder" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 20; -fx-padding: 10 30 10 30; -fx-cursor: hand;" text="Xác nhận đặt hàng">
+                    <effect>
+                        <DropShadow color="#10B98140" offsetY="4" radius="10" />
+                    </effect>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>

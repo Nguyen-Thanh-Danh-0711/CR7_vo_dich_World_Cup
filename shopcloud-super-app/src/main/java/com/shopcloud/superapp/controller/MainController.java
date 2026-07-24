@@ -11,6 +11,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -77,6 +78,14 @@ public class MainController implements Initializable {
     // FXML CONTROLS — ánh xạ với các thành phần giao diện trong MainView.fxml
     // ========================================================================================
 
+    /** Label hiển thị thông tin tài khoản trên Topbar */
+    @FXML
+    private Label lblAccountInfo;
+
+    /** Nút Đăng xuất nằm ở góc phải Topbar */
+    @FXML
+    private Button btnLogoutTop;
+
     /** Thanh Header Bar tùy chỉnh — cho phép kéo rê di chuyển cửa sổ */
     @FXML
     private HBox headerBar;
@@ -114,11 +123,25 @@ public class MainController implements Initializable {
     @FXML
     private Button btnMyProducts;
 
+    /** Nút chuyển sang màn hình Quản lý đánh giá của Seller */
+    @FXML
+    private Button btnSellerReviews;
+
+    /** Nút Đăng xuất — nằm cuối Sidebar */
+    @FXML
+    private Button btnLogout;
+
     @FXML
     private StackPane contentArea;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Cập nhật thông tin tài khoản người dùng trên Topbar
+        String username = App.UserSession.getUsername();
+        if (lblAccountInfo != null && username != null && !username.isBlank()) {
+            lblAccountInfo.setText(username);
+        }
+
         // 1. Lấy danh sách roles từ session toàn cục sau đăng nhập (mock JWT)
         Set<String> roles = App.UserSession.getRoles();
         
@@ -397,6 +420,41 @@ public class MainController implements Initializable {
             setNodeVisibility(sellerSubMenu, false);
         }
         loadWorkspace("/fxml/admin/AdminSpace.fxml");
+    }
+
+    /**
+     * Nạp giao diện Quản lý đánh giá dành cho Người bán vào vùng hiển thị trung tâm.
+     */
+    @FXML
+    private void loadSellerReviewView() throws IOException {
+        loadWorkspace("/fxml/seller/SellerReviewView.fxml");
+    }
+
+    // ========================================================================================
+    // XỬ LÝ ĐĂNG XUẤT (LOGOUT)
+    // ========================================================================================
+
+    /**
+     * Xử lý sự kiện bấm nút "Đăng xuất":
+     * 1. Xóa toàn bộ dữ liệu UserSession (username, roles).
+     * 2. Nạp lại giao diện Đăng nhập (LoginView.fxml) và đặt làm root scene.
+     * 3. Reset tiêu đề cửa sổ về trạng thái ban đầu.
+     */
+    @FXML
+    private void handleLogout() throws IOException {
+        // 1. Xóa dữ liệu session toàn cục — giải phóng bộ nhớ phân quyền
+        App.UserSession.clear();
+
+        // 2. Nạp lại LoginView.fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
+        Parent loginRoot = loader.load();
+
+        // 3. Lấy Stage hiện tại và thay đổi root scene về LoginView
+        Stage currentStage = getPrimaryStage();
+        if (currentStage != null) {
+            currentStage.setTitle("ShopCloud Super App — Đăng nhập");
+            currentStage.getScene().setRoot(loginRoot);
+        }
     }
 
     /**

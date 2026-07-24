@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Modal Tố cáo Sản phẩm (Report Product) — UNDECORATED với Header Workspace Portal. -->
+
+<VBox prefHeight="380.0" prefWidth="500.0" spacing="0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E5E7EB; -fx-border-width: 1;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.ReportProductController">
+    <children>
+        <!-- Header Workspace Portal -->
+        <HBox fx:id="headerBar" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10" style="-fx-background-color: #1E3A8A; -fx-padding: 0 16 0 16;">
+            <children>
+                <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" text="☁ SHOP CLOUD — Tố cáo sản phẩm" />
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER_RIGHT" spacing="8">
+                    <children>
+                        <Button onAction="#handleCloseWindow" style="-fx-background-color: transparent; -fx-text-fill: #F87171; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="✕" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+
+        <!-- Nội dung form -->
+        <VBox spacing="14" style="-fx-padding: 24;" VBox.vgrow="ALWAYS">
+            <children>
+                <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #DC2626;" text="Báo cáo vi phạm sản phẩm" />
+                <Label fx:id="lblProductName" style="-fx-text-fill: #374151; -fx-font-size: 13px;" text="Sản phẩm: ..." wrapText="true" />
+
+                <!-- Chọn lý do tố cáo -->
+                <VBox spacing="6">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Lý do tố cáo *" />
+                        <ComboBox fx:id="reasonComboBox" maxWidth="Infinity" promptText="Chọn lý do tố cáo..." style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8;" />
+                    </children>
+                </VBox>
+
+                <!-- Mô tả thêm (tùy chọn) -->
+                <VBox spacing="6">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #374151;" text="Mô tả chi tiết (tùy chọn)" />
+                        <TextArea fx:id="descriptionArea" maxWidth="Infinity" prefRowCount="3" promptText="Mô tả thêm về vấn đề bạn gặp phải..." wrapText="true" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <!-- Footer: Nút gửi + Hủy -->
+        <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-background-color: #F9FAFB; -fx-padding: 14 24 14 24; -fx-border-color: #E5E7EB transparent transparent transparent;">
+            <children>
+                <Button onAction="#handleCancel" style="-fx-background-color: #E5E7EB; -fx-text-fill: #374151; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-cursor: hand;" text="Hủy" />
+                <Button onAction="#handleSubmitReport" style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 8 24 8 24; -fx-cursor: hand;" text="Gửi tố cáo">
+                    <effect>
+                        <DropShadow color="#DC262640" offsetY="4" radius="8" />
+                    </effect>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>

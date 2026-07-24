@@ -115,16 +115,16 @@ public class AddProductController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn ảnh đại diện sản phẩm");
 
-        // Cấu hình bộ lọc hỗ trợ PNG, JPG, JPEG, WEBP
+        // Cấu hình bộ lọc mở rộng chuẩn cross-platform (Windows & Linux)
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Hình ảnh (PNG, JPG, JPEG, WEBP)", "*.png", "*.jpg", "*.jpeg", "*.webp"),
+                new FileChooser.ExtensionFilter("Hình ảnh (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg", "*.PNG", "*.JPG", "*.JPEG"),
                 new FileChooser.ExtensionFilter("Tất cả tệp (*.*)", "*.*")
         );
 
-        // Đặt InitialDirectory an toàn về thư mục người dùng
-        File userHome = new File(System.getProperty("user.home"));
-        if (userHome.exists() && userHome.isDirectory()) {
-            fileChooser.setInitialDirectory(userHome);
+        // Đặt thư mục khởi tạo an toàn (ưu tiên Pictures, fallback về user.home)
+        File initialDir = getSafeInitialDirectory();
+        if (initialDir != null) {
+            fileChooser.setInitialDirectory(initialDir);
         }
 
         // Lấy Stage hiện tại làm Window Owner
@@ -154,6 +154,7 @@ public class AddProductController implements Initializable {
 
     /**
      * Mở FileChooser hỗ trợ chọn đồng thời nhiều hình ảnh minh họa chi tiết.
+     * Tương thích hoàn toàn Windows và Linux.
      */
     @FXML
     private void handleUploadGallery(ActionEvent event) {
@@ -161,13 +162,13 @@ public class AddProductController implements Initializable {
         fileChooser.setTitle("Chọn tập ảnh chi tiết & minh họa sản phẩm");
 
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Hình ảnh (PNG, JPG, JPEG, WEBP)", "*.png", "*.jpg", "*.jpeg", "*.webp"),
+                new FileChooser.ExtensionFilter("Hình ảnh (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg", "*.PNG", "*.JPG", "*.JPEG"),
                 new FileChooser.ExtensionFilter("Tất cả tệp (*.*)", "*.*")
         );
 
-        File userHome = new File(System.getProperty("user.home"));
-        if (userHome.exists() && userHome.isDirectory()) {
-            fileChooser.setInitialDirectory(userHome);
+        File initialDir = getSafeInitialDirectory();
+        if (initialDir != null) {
+            fileChooser.setInitialDirectory(initialDir);
         }
 
         Stage ownerStage = (Stage) btnUploadGallery.getScene().getWindow();
@@ -182,6 +183,30 @@ public class AddProductController implements Initializable {
             }
             renderGalleryPreviews();
         }
+    }
+
+    /**
+     * Lấy thư mục khởi tạo an toàn hỗ trợ cross-platform (Windows & Linux/Ubuntu).
+     * Ưu tiên thư mục Pictures/Pictures, fallback về user.home.
+     */
+    private File getSafeInitialDirectory() {
+        String userHomeStr = System.getProperty("user.home");
+        if (userHomeStr == null || userHomeStr.isBlank()) {
+            return null;
+        }
+
+        File userHome = new File(userHomeStr);
+        if (!userHome.exists() || !userHome.isDirectory()) {
+            return null;
+        }
+
+        // Ưu tiên thư mục Pictures
+        File picturesDir = new File(userHome, "Pictures");
+        if (picturesDir.exists() && picturesDir.isDirectory()) {
+            return picturesDir;
+        }
+
+        return userHome;
     }
 
     /**

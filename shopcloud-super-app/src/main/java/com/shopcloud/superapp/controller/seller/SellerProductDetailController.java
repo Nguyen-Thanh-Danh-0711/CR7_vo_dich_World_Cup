@@ -28,7 +28,13 @@ public class SellerProductDetailController {
     private static final String DEFAULT_IMAGE_PATH = "/fxml/assets/logo.png";
 
     @FXML
-    private Label lblHeaderSubtitle;
+    private HBox headerBar;
+
+    @FXML
+    private Button btnMinimize;
+
+    @FXML
+    private Button btnMaximize;
 
     @FXML
     private Label lblProductIdBadge;
@@ -68,6 +74,9 @@ public class SellerProductDetailController {
 
     @FXML
     private Button btnToggleStatus;
+
+    @FXML
+    private Button btnCloseHeader;
 
     @FXML
     private Button btnClose;
@@ -112,6 +121,9 @@ public class SellerProductDetailController {
 
         // 4. Cập nhật trạng thái kinh doanh và Nút Toggle
         updateStatusUI();
+
+        // 5. Gắn kéo thả header
+        setupDraggableHeader();
     }
 
     /**
@@ -323,9 +335,76 @@ public class SellerProductDetailController {
      */
     @FXML
     private void handleClose(ActionEvent event) {
-        Stage stage = (Stage) btnClose.getScene().getWindow();
+        Stage stage = getModalStage();
         if (stage != null) {
             stage.close();
         }
+    }
+
+    // ========================================================================================
+    // ĐIỀU KHIỂN CỬA SỔ MODAL (WINDOW CONTROLS)
+    // ========================================================================================
+
+    private double lastX, lastY, lastWidth, lastHeight;
+    private boolean isMaximized = false;
+
+    @FXML
+    private void handleMinimize(ActionEvent event) {
+        Stage stage = getModalStage();
+        if (stage != null) {
+            stage.setIconified(true);
+        }
+    }
+
+    @FXML
+    private void handleMaximizeRestore(ActionEvent event) {
+        Stage stage = getModalStage();
+        if (stage == null) {
+            return;
+        }
+
+        stage.setMaximized(!stage.isMaximized());
+        isMaximized = stage.isMaximized();
+
+        if (btnMaximize != null) {
+            btnMaximize.setText(isMaximized ? "❐" : "▢");
+            btnMaximize.setTooltip(new javafx.scene.control.Tooltip(isMaximized ? "Khôi phục kích thước" : "Phóng to"));
+        }
+    }
+
+    private Stage getModalStage() {
+        if (btnCloseHeader != null && btnCloseHeader.getScene() != null) {
+            return (Stage) btnCloseHeader.getScene().getWindow();
+        }
+        if (btnClose != null && btnClose.getScene() != null) {
+            return (Stage) btnClose.getScene().getWindow();
+        }
+        if (headerBar != null && headerBar.getScene() != null) {
+            return (Stage) headerBar.getScene().getWindow();
+        }
+        return null;
+    }
+
+    private void setupDraggableHeader() {
+        if (headerBar == null) {
+            return;
+        }
+        final double[] dragOffset = new double[2];
+
+        headerBar.setOnMousePressed(event -> {
+            Stage stage = getModalStage();
+            if (stage != null) {
+                dragOffset[0] = stage.getX() - event.getScreenX();
+                dragOffset[1] = stage.getY() - event.getScreenY();
+            }
+        });
+
+        headerBar.setOnMouseDragged(event -> {
+            Stage stage = getModalStage();
+            if (stage != null && !isMaximized) {
+                stage.setX(event.getScreenX() + dragOffset[0]);
+                stage.setY(event.getScreenY() + dragOffset[1]);
+            }
+        });
     }
 }

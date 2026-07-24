@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Giao diện Giỏ hàng (Cart View) — hiển thị dưới dạng Modal Pop-up UNDECORATED.
+     Header Workspace Portal được tạo động bằng WorkspaceHeaderFactory trong CartController. -->
+
+<VBox prefHeight="600.0" prefWidth="750.0" spacing="0" style="-fx-background-color: #FFFFFF;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.CartController">
+    <children>
+        <!-- Header Workspace Portal — tạo bằng code Java (WorkspaceHeaderFactory) -->
+        <HBox fx:id="headerBar" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10" style="-fx-background-color: #1E3A8A; -fx-padding: 0 16 0 16;">
+            <children>
+                <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" text="☁ SHOP CLOUD — Giỏ hàng của bạn" />
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER_RIGHT" spacing="8">
+                    <children>
+                        <Button fx:id="btnMinimize" onAction="#handleMinimize" style="-fx-background-color: transparent; -fx-text-fill: #94A3B8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="—" />
+                        <Button fx:id="btnCloseWindow" onAction="#handleCloseWindow" style="-fx-background-color: transparent; -fx-text-fill: #F87171; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="✕" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+
+        <!-- Thanh điều khiển: Checkbox chọn tất cả + Thông tin tổng quan -->
+        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-background-color: #F9FAFB; -fx-padding: 12 20 12 20; -fx-border-color: transparent transparent #E5E7EB transparent;">
+            <children>
+                <CheckBox fx:id="cbSelectAll" onAction="#handleSelectAll" style="-fx-font-weight: bold;" text="Chọn tất cả" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblCartSummary" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" text="0 sản phẩm trong giỏ hàng" />
+            </children>
+        </HBox>
+
+        <!-- Danh sách sản phẩm trong giỏ hàng — cuộn dọc -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="cartItemContainer" spacing="0" style="-fx-padding: 0;">
+                    <children>
+                        <!-- Các CartItem sẽ được render động bằng CartController -->
+                        <Label fx:id="lblEmptyCart" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #9CA3AF; -fx-font-size: 15px; -fx-padding: 60 20 60 20; -fx-font-style: italic;" text="Giỏ hàng trống — Hãy khám phá sản phẩm và thêm vào giỏ!" />
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- Footer: Tổng tiền đã chọn + Nút Đặt hàng -->
+        <HBox alignment="CENTER" spacing="16" style="-fx-background-color: #F9FAFB; -fx-padding: 16 24 16 24; -fx-border-color: #E5E7EB transparent transparent transparent;">
+            <children>
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px;" text="Tổng thanh toán (đã chọn):" />
+                        <Label fx:id="lblTotalPrice" style="-fx-text-fill: #EF4444; -fx-font-weight: bold; -fx-font-size: 22px;" text="0đ" />
+                    </children>
+                </VBox>
+                <Button fx:id="btnCheckout" mnemonicParsing="false" onAction="#handleCheckout" style="-fx-background-color: #F97316; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 20; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Đặt hàng">
+                    <effect>
+                        <DropShadow color="#F9731640" offsetY="4" radius="10" />
+                    </effect>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>

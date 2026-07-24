@@ -17,9 +17,21 @@
     <top>
         <HBox fx:id="headerBar" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10" style="-fx-background-color: #1E3A8A; -fx-padding: 0 16 0 16;">
             <children>
+                <!-- Tiêu đề thương hiệu bên trái -->
                 <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" text="☁ SHOP CLOUD SUPER APP — Workspace Portal" />
-                <!-- Region co giãn chiếm hết khoảng trống giữa tiêu đề và nhóm nút điều khiển -->
-                <Region prefHeight="70.0" prefWidth="708.0" HBox.hgrow="ALWAYS" />
+
+                <!-- Region đệm tự co giãn chiếm hết khoảng trống ở giữa -->
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Cụm tài khoản + Nút Đăng xuất ở góc phải, giữ margin an toàn 130px cách 3 nút điều khiển cửa sổ -->
+                <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 0 130 0 0;">
+                    <children>
+                        <Label fx:id="lblAccountInfo" style="-fx-text-fill: #E2E8F0; -fx-font-weight: bold; -fx-font-size: 12px;" text="Tài khoản" />
+                        <Button fx:id="btnLogoutTop" onAction="#handleLogout" style="-fx-background-color: #FEE2E2; -fx-text-fill: #DC2626; -fx-background-radius: 12; -fx-padding: 4 12 4 12; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="Đăng xuất" />
+                    </children>
+                </HBox>
+
+                <!-- Cụm 3 nút điều khiển cửa sổ -->
                 <HBox alignment="CENTER_RIGHT" spacing="8">
                     <children>
                         <!-- Nút Thu nhỏ xuống Taskbar -->
@@ -71,6 +83,7 @@
                         <children>
                             <Button fx:id="btnAddProduct" maxWidth="Infinity" onAction="#loadAddProductView" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="Đăng bán sản phẩm" />
                             <Button fx:id="btnMyProducts" maxWidth="Infinity" onAction="#loadMyProductsView" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="Sản phẩm của tôi" />
+                            <Button fx:id="btnSellerReviews" maxWidth="Infinity" onAction="#loadSellerReviewView" style="-fx-background-color: #8B5CF6; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 7 16 7 16; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="Quản lý đánh giá" />
                         </children>
                     </VBox>
                 </children>
@@ -81,6 +94,9 @@
                     <DropShadow color="#1E3A8A33" offsetY="4" radius="15" />
                 </effect>
             </Button>
+
+            <!-- Region co giãn đẩy nút Đăng xuất xuống cuối Sidebar -->
+            <Region VBox.vgrow="ALWAYS" />
 
         </VBox>
     </left>

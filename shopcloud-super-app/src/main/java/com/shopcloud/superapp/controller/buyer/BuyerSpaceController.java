@@ -1,6 +1,7 @@
 package com.shopcloud.superapp.controller.buyer;
 
 import com.shopcloud.superapp.model.Product;
+import com.shopcloud.superapp.store.CartStore;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.InputStream;
@@ -71,7 +73,7 @@ public class BuyerSpaceController implements Initializable {
     private TilePane productGrid;
 
     @FXML
-    private Label cartCountLabel;
+    private Button btnOpenCart;
 
     @FXML
     private HBox toastContainer;
@@ -82,8 +84,8 @@ public class BuyerSpaceController implements Initializable {
     /** Danh sách sản phẩm gốc (Mock Data phong phú). */
     private final ObservableList<Product> masterProductList = FXCollections.observableArrayList();
 
-    /** Tổng số lượng sản phẩm trong giỏ hàng tạm thời. */
-    private int totalCartCount = 0;
+    /** Kho dữ liệu giỏ hàng toàn cục. */
+    private final CartStore cartStore = CartStore.getInstance();
 
     /** Timer ẩn thông báo Toast tự động. */
     private Timeline toastTimeline;
@@ -276,30 +278,71 @@ public class BuyerSpaceController implements Initializable {
     }
 
     /**
-     * 1. EVENT HANDLER 1: Thêm sản phẩm vào giỏ hàng và cập nhật badge hiển thị.
+     * 1. EVENT HANDLER 1: Thêm sản phẩm vào giỏ hàng qua CartStore và cập nhật badge.
      */
     public void handleAddToCart(Product product, int quantity) {
-        totalCartCount += quantity;
-        cartCountLabel.setText("Giỏ hàng: " + totalCartCount);
+        cartStore.addToCart(product, quantity);
+        updateCartBadge();
         showToast("Đã thêm " + quantity + " x \"" + product.getName() + "\" vào giỏ hàng thành công!");
     }
 
     /**
-     * 2. EVENT HANDLER 2: Xử lý đặt mua ngay sản phẩm (chuyển hướng / tạo đơn hàng tức thì).
+     * 2. EVENT HANDLER 2: Xử lý đặt mua ngay sản phẩm — mở trực tiếp Modal Checkout cho duy nhất sản phẩm đó.
      */
     public void handleBuyNow(Product product, int quantity) {
-        double totalPrice = product.getPrice() * quantity;
-        NumberFormat currencyFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
-        String formattedTotal = currencyFormat.format(totalPrice) + "đ";
+        if (product == null) {
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/buyer/CheckoutModal.fxml"));
+            Parent root = loader.load();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("ShopCloud — Xác nhận đơn hàng");
-        alert.setHeaderText("Tạo đơn hàng thành công!");
-        alert.setContentText("Đã tạo đơn hàng thành công cho sản phẩm:\n"
-                + "• Tên sản phẩm: " + product.getName() + "\n"
-                + "• Số lượng: " + quantity + "\n"
-                + "• Tổng tiền thanh toán: " + formattedTotal);
-        alert.showAndWait();
+            CheckoutController controller = loader.getController();
+            controller.setBuyNowItem(product, quantity);
+            controller.setOnOrderCompleteCallback(() -> {
+                showToast("Đặt hàng thành công sản phẩm \"" + product.getName() + "\"!");
+            });
+
+            Stage modalStage = new Stage();
+            modalStage.initStyle(StageStyle.UNDECORATED);
+            modalStage.setResizable(false);
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setScene(new Scene(root));
+            modalStage.showAndWait();
+        } catch (Exception e) {
+            throw new RuntimeException("Không thể mở giao diện Thanh toán trực tiếp (Mua ngay)!", e);
+        }
+    }
+
+    /**
+     * 3. EVENT HANDLER 3: Mở giao diện Giỏ hàng dưới dạng Modal Pop-up UNDECORATED.
+     */
+    @FXML
+    private void handleOpenCart() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/buyer/CartView.fxml"));
+            Parent root = loader.load();
+
+            Stage modalStage = new Stage();
+            modalStage.initStyle(StageStyle.UNDECORATED);
+            modalStage.setResizable(false);
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.setScene(new Scene(root));
+            modalStage.showAndWait();
+
+            // Cập nhật badge sau khi đóng CartView (có thể đã xóa item)
+            updateCartBadge();
+        } catch (Exception e) {
+            throw new RuntimeException("Không thể mở giao diện Giỏ hàng!", e);
+        }
+    }
+
+    /**
+     * Cập nhật text hiển thị số lượng trên nút giỏ hàng từ CartStore.
+     */
+    private void updateCartBadge() {
+        int count = cartStore.getCartItemCount();
+        btnOpenCart.setText("Giỏ hàng: " + count);
     }
 
     /**
@@ -314,11 +357,14 @@ public class BuyerSpaceController implements Initializable {
             controller.setProduct(product, this::handleAddToCart, this::handleBuyNow);
 
             Stage modalStage = new Stage();
-            modalStage.setTitle("Chi tiết sản phẩm - " + product.getName());
+            modalStage.initStyle(StageStyle.UNDECORATED);
+            modalStage.setResizable(false);
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setScene(new Scene(root));
-            modalStage.setResizable(false);
             modalStage.showAndWait();
+
+            // Cập nhật badge sau khi đóng modal (có thể đã thêm giỏ hàng)
+            updateCartBadge();
         } catch (Exception e) {
             throw new RuntimeException("Không thể nạp giao diện Chi tiết sản phẩm (" + product.getName() + ")!", e);
         }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Giao diện Quản lý Đánh giá dành cho Người bán (Seller Review Management).
+     Hiển thị danh sách đánh giá của người mua và cho phép gửi phản hồi. -->
+
+<VBox prefHeight="650.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.seller.SellerReviewController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <!-- Header: Tiêu đề + Thống kê -->
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #FFFFFF; -fx-padding: 16 24 16 24; -fx-background-radius: 12; -fx-border-color: #E5E7EB; -fx-border-radius: 12;">
+            <children>
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;" text="Quản lý đánh giá từ người mua" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" text="Xem và phản hồi tất cả đánh giá sản phẩm thuộc cửa hàng của bạn" />
+                    </children>
+                </VBox>
+                <!-- Badge tổng số đánh giá -->
+                <Label fx:id="lblTotalReviews" style="-fx-background-color: #EFF6FF; -fx-text-fill: #1D4ED8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 8 16 8 16; -fx-background-radius: 20; -fx-border-color: #BFDBFE; -fx-border-radius: 20;" text="Tổng: 0 đánh giá" />
+            </children>
+            <effect>
+                <DropShadow color="#0000000D" offsetY="2" radius="8" />
+            </effect>
+        </HBox>
+
+        <!-- Danh sách đánh giá — cuộn dọc -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="reviewListContainer" spacing="12" style="-fx-padding: 4;">
+                    <children>
+                        <!-- Placeholder — render động bằng SellerReviewController -->
+                        <Label fx:id="lblEmpty" alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #9CA3AF; -fx-font-size: 15px; -fx-padding: 60 20 60 20; -fx-font-style: italic;" text="Chưa có đánh giá nào cho cửa hàng của bạn." />
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</VBox>

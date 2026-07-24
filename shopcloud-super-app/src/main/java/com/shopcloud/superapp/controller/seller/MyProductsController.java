@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -123,7 +124,11 @@ public class MyProductsController implements Initializable {
                 btnDetail.setOnAction(event -> {
                     Product product = getTableRow().getItem();
                     if (product != null) {
-                        handleViewDetail(product);
+                        try {
+                            handleViewDetail(product);
+                        } catch (Exception e) {
+                            throw new RuntimeException("Lỗi nạp giao diện Chi tiết sản phẩm Kênh Người Bán!", e);
+                        }
                     }
                 });
 
@@ -167,26 +172,27 @@ public class MyProductsController implements Initializable {
     /**
      * Mở Pop-up Modal hiển thị chi tiết sản phẩm chuyên biệt cho Người bán (SellerProductDetailModal.fxml).
      * Loại bỏ các nút mua hàng của Người mua, hỗ trợ thao tác Chỉnh sửa và Ẩn/Tắt kinh doanh.
+     * Ném ngoại lệ lên GlobalExceptionHandler nếu gặp lỗi I/O nạp FXML theo quy tắc SRP.
      *
      * @param product Sản phẩm cần xem chi tiết
      */
-    private void handleViewDetail(Product product) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/seller/SellerProductDetailModal.fxml"));
-            Parent root = loader.load();
-
-            SellerProductDetailController controller = loader.getController();
-            controller.setProduct(product, () -> productTable.refresh());
-
-            Stage modalStage = new Stage();
-            modalStage.setTitle("Chi tiết sản phẩm (Kênh Người Bán) — " + product.getName());
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            modalStage.setScene(new Scene(root));
-            modalStage.setResizable(false);
-            modalStage.showAndWait();
-        } catch (Exception e) {
-            throw new RuntimeException("Không thể mở giao diện chi tiết sản phẩm dành cho Người bán: " + product.getName(), e);
+    private void handleViewDetail(Product product) throws Exception {
+        if (product == null) {
+            return;
         }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/seller/SellerProductDetailModal.fxml"));
+        Parent root = loader.load();
+
+        SellerProductDetailController controller = loader.getController();
+        controller.setProduct(product, () -> productTable.refresh());
+
+        Stage modalStage = new Stage();
+        modalStage.initStyle(StageStyle.UNDECORATED);
+        modalStage.setResizable(false);
+        modalStage.initModality(Modality.APPLICATION_MODAL);
+        modalStage.setScene(new Scene(root));
+        modalStage.showAndWait();
     }
 
     // ========================================================================================

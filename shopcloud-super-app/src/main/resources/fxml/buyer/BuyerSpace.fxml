@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="650.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.BuyerSpaceController">
+<VBox prefHeight="650.0" prefWidth="950.0" spacing="15.0" style="-fx-background-color: #F9FAFB;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.buyer.BuyerSpaceController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -25,8 +25,8 @@
                   <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" text="Khám phá hàng ngàn sản phẩm chính hãng với ưu đãi tốt nhất" />
                </children>
             </VBox>
-            <!-- Label hiển thị số lượng giỏ hàng -->
-            <Label fx:id="cartCountLabel" style="-fx-background-color: #EFF6FF; -fx-text-fill: #1D4ED8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 8 16 8 16; -fx-background-radius: 20; -fx-border-color: #BFDBFE; -fx-border-radius: 20;" text="Giỏ hàng: 0" />
+            <!-- Nút hiển thị số lượng giỏ hàng — click để mở CartView Modal -->
+             <Button fx:id="btnOpenCart" onAction="#handleOpenCart" style="-fx-background-color: #EFF6FF; -fx-text-fill: #1D4ED8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 8 16 8 16; -fx-background-radius: 20; -fx-border-color: #BFDBFE; -fx-border-radius: 20; -fx-cursor: hand;" text="Giỏ hàng: 0" />
          </children>
          <effect>
             <DropShadow color="#0000000D" offsetY="2" radius="8" />
@@ -43,7 +43,7 @@
             <ComboBox fx:id="sortComboBox" prefWidth="220.0" promptText="Sắp xếp theo..." style="-fx-background-color: #F3F4F6; -fx-background-radius: 20; -fx-border-radius: 20; -fx-padding: 4 10 4 10; -fx-font-weight: bold;" />
 
             <!-- Nút Tìm kiếm hiển thị nổi bật 100% -->
-            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#handleSearch" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 20 8 20; -fx-cursor: hand;" styleClass="btn-primary" text="Tìm kiếm" />
+            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#handleSearch" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 8 20 8 20; -fx-cursor: hand;" styleClass="btn-primary" text="Tìm kiếm" />
          </children>
          <effect>
             <DropShadow color="#00000008" offsetY="2" radius="6" />

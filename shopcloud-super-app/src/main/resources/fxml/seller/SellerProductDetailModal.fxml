@@ -6,6 +6,7 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <!-- Modal Chi tiết Sản phẩm chuyên biệt cho Người bán (Seller Product Detail Modal).
@@ -15,19 +16,19 @@
 <VBox prefHeight="600" prefWidth="720" spacing="0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #E5E7EB; -fx-border-radius: 16; -fx-border-width: 1;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shopcloud.superapp.controller.seller.SellerProductDetailController">
 
     <children>
-        <!-- Header Modal -->
-        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-background-color: #1E3A8A; -fx-background-radius: 0 0 0 0; -fx-padding: 16 24 16 24;">
+        <!-- Header Modal Workspace Portal -->
+        <HBox fx:id="headerBar" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10" style="-fx-background-color: #1E3A8A; -fx-padding: 0 16 0 16;">
             <children>
-                <VBox spacing="2" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 17px;" text="Chi tiết sản phẩm — Kênh Người Bán" />
-                        <Label fx:id="lblHeaderSubtitle" style="-fx-text-fill: #93C5FD; -fx-font-size: 12px;" text="Quản lý thông tin, tồn kho và trạng thái kinh doanh" />
-                    </children>
-                </VBox>
-                <!-- Badge Mã sản phẩm -->
+                <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" text="☁ SHOP CLOUD — Chi tiết sản phẩm (Kênh Người Bán)" />
+                <Region HBox.hgrow="ALWAYS" />
                 <Label fx:id="lblProductIdBadge" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 20;" text="SP000" />
-                <!-- Badge Trạng thái Kinh doanh -->
                 <Label fx:id="lblStatusBadge" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px; -fx-padding: 4 10 4 10; -fx-background-radius: 20;" text="Đang kinh doanh" />
+                <HBox alignment="CENTER_RIGHT" spacing="8" style="-fx-padding: 0 0 0 10;">
+                    <children>
+                        <Button fx:id="btnMinimize" onAction="#handleMinimize" style="-fx-background-color: transparent; -fx-text-fill: #94A3B8; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="—" />
+                        <Button fx:id="btnCloseHeader" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: #F87171; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="✕" />
+                    </children>
+                </HBox>
             </children>
         </HBox>
 

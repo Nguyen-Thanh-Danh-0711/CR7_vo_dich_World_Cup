@@ -210,4 +210,15 @@ public final class AdminDataStore {
         WarningNotice notice = new WarningNotice(warnId, targetId, targetName, targetType, title, content, deadline, nowStr);
         warningNotices.add(0, notice);
     }
+
+    /**
+     * Thêm báo cáo vi phạm mới vào danh sách (được gọi từ Buyer khi tố cáo sản phẩm).
+     *
+     * @param report Báo cáo vi phạm đã validate
+     */
+    public void addReport(ViolationReport report) {
+        if (report != null) {
+            reports.add(0, report);
+        }
+    }
 }
